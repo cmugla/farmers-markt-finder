@@ -1,6 +1,8 @@
 # Farmer's Market Finder
   
-  A mobile app for those looking for a nearby Farmer's market and for Farmers to send out any special deal info to subscribed users
+  A mobile app for Farmer's Market enthusiasts.
+
+  When opened, the app uses geolocation to show the user's nearby Farmer's market that are currently happening. As a farmer, you can add your Farm to the Farmer's Market you have a booth at. When a user clicks on a market, all relevant info about that market show, including the location, contact info, and hours; as well as any recent posts made by their farmers. Users can save their favorite market and follow their favorite farms. If they are following a farm, they'll see their posts on their feed when the app is opened.
 
 ## User's stories
 
@@ -17,7 +19,9 @@
   - React Native: front-end user interface
   - API: <a href="https://data.ny.gov/Economic-Development/Farmers-Markets-in-New-York-State-API/xjya-f8ng" target="_blank">Farmers Markets in NYC</a>
   - API: <a href="https://developers.google.com/maps/documentation/" target="_blank">Google Maps API</a>
-  - PSQL: DB stores user name (and login info), favorite markets, and favorite farms
+  - PSQL: 
+    - User table stores user name (and login info), favorite markets, and favorite farms
+    - Farmer table stores Farmer's name/contact info and their updates
 
 ## Wireframes
 
