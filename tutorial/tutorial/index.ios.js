@@ -18,12 +18,14 @@ class tutorial extends Component {
     return (
       <View>
         <View style={styles.toolbar}>
-            <Text style={styles.toolbarButton}>Add</Text>
-            <Text style={styles.toolbarTitle}>This is the title</Text>
-            <Text style={styles.toolbarButton}>Like</Text>
+            <Text style={styles.toolbarButton}>Login</Text>
+            <Text style={styles.toolbarTitle}>Farmer's Market</Text>
+            <Text style={styles.toolbarButton}>Create</Text>
         </View>
         <View style={styles.container}>
-          <Image source={require('./radishes.jpg')} style={styles.backdrop}>
+          <Image
+            source={require('./cow.jpg')}
+            style={styles.backdrop}>
             <Text style={styles.welcome}>
               Hello World!
             </Text>
@@ -33,7 +35,6 @@ class tutorial extends Component {
             <Text style={styles.instructions}>
               This will soon be the farmer app
             </Text>
-            <Bananas />
           </Image>
         </View>
       </View>
@@ -54,13 +55,15 @@ class Bananas extends Component {
 
 const styles = StyleSheet.create({
   backdrop: {
-    paddingTop: 60,
+    paddingTop:200,
+    flex:1,
+    resizeMode: 'contain'
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: 'rgba(0,0,0,0)'
   },
   welcome: {
     fontSize: 20,
