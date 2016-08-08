@@ -9,11 +9,15 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator
 } from 'react-native';
+
+import MyScene from './MyScene.js'
 
 class AwesomeProject extends Component {
   render() {
+    console.log('My view being triggered')
     return (
       <View>
         <View style={styles.toolbar}>
@@ -32,6 +36,15 @@ class AwesomeProject extends Component {
             Press Cmd+R to reload,{'\n'}
             Cmd+D or shake for dev menu
           </Text>
+        </View>
+        <View style={styles.footer}>
+          <Navigator
+            initialRoute={{ title: 'Awesome Scene', index: 0 }}
+            renderScene={(route, navigator) =>
+              <Text>Hello {route.title}!</Text>
+            }
+            style={{padding: 100}}
+          />
         </View>
       </View>
     );
@@ -70,6 +83,9 @@ const styles = StyleSheet.create({
     color:'#fff',
     textAlign:'center',
     fontWeight:'bold',
+    flex:1
+  },
+  footer:{
     flex:1
   }
 });
