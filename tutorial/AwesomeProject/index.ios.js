@@ -4,90 +4,51 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Navigator
-} from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { NavigatorIOS, Text, AppRegistry, TouchableHighlight, View } from 'react-native';
 
-import MyScene from './MyScene.js'
-
-class AwesomeProject extends Component {
+class NavigatorIOSApp extends Component {
   render() {
-    console.log('My view being triggered')
     return (
-      <View>
-        <View style={styles.toolbar}>
-            <Text style={styles.toolbarButton}>Login</Text>
-            <Text style={styles.toolbarTitle}>Farmer's Market</Text>
-            <Text style={styles.toolbarButton}>Create</Text>
-        </View>
-        <View style={styles.container}>
-          <Text style={styles.welcome}>
-            Welcome to React Native!
-          </Text>
-          <Text style={styles.instructions}>
-            To get started, edit index.ios.js
-          </Text>
-          <Text style={styles.instructions}>
-            Press Cmd+R to reload,{'\n'}
-            Cmd+D or shake for dev menu
-          </Text>
-        </View>
-        <View style={styles.footer}>
-          <Navigator
-            initialRoute={{ title: 'Awesome Scene', index: 0 }}
-            renderScene={(route, navigator) =>
-              <Text>Hello {route.title}!</Text>
-            }
-            style={{padding: 100}}
-          />
-        </View>
-      </View>
+      <NavigatorIOS
+        initialRoute={{
+          component: MyScene,
+          title: 'My Initial Scene',
+        }}
+        style={{flex: 1}}
+      />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  toolbar:{
-    backgroundColor:'#81c04d',
-    paddingTop:30,
-    paddingBottom:10,
-    flexDirection:'row'
-  },
-  toolbarButton:{
-    width: 50,
-    color:'#fff',
-    textAlign:'center'
-  },
-  toolbarTitle:{
-    color:'#fff',
-    textAlign:'center',
-    fontWeight:'bold',
-    flex:1
-  },
-  footer:{
-    flex:1
+class MyScene extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    navigator: PropTypes.object.isRequired,
   }
-});
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+  constructor(props, context) {
+    super(props, context);
+    this._onForward = this._onForward.bind(this);
+    // this._onBack = this._onBack.bind(this);
+  }
+
+  _onForward() {
+    this.props.navigator.push({
+      title: 'Scene ' + nextIndex,
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        <Text>Current Scene: { this.props.title }</Text>
+        <TouchableHighlight onPress={this._onForward}>
+          <Text>Tap me to load the next scene</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+}
+
+AppRegistry.registerComponent('AwesomeProject', () => NavigatorIOSApp);
