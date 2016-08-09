@@ -1,0 +1,36 @@
+{
+  "name": "farmer_app",
+  "version": "1.0.0",
+  "description": "An app for connecting the community with Farmers and the Farmer's Market",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmugla/farmers-markt-finder.git"
+  },
+  "keywords": [
+    "farmer",
+    "farmers",
+    "market",
+    "market",
+    "fresh",
+    "nyc",
+    "greenmarket"
+  ],
+  "author": "Celeste Glavin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cmugla/farmers-markt-finder/issues"
+  },
+  "homepage": "https://github.com/cmugla/farmers-markt-finder#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
+    "pg-promise": "^5.2.7",
+    "request": "^2.74.0"
+  }
+}
