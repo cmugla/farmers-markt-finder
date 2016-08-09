@@ -7,11 +7,14 @@ module.exports = {
     request({
       url:'https://data.ny.gov/resource/farmersmarkets.json',
       method:'get',
-      json:true
+      json:true,
+      qs: {
+        zip: req.query.zip
+      }
     },(err,response,body)=>{
       if(err) throw err;
       res.results = body;
-    next();
+      next();
     })
   }
 }
