@@ -16,4 +16,10 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
+  getZip(long, lat) {
+    return fetch(`http://localhost:3000/mkts/location?longitude=${long}&latitude=${lat}`)
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
 }

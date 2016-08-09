@@ -59,11 +59,20 @@ class Waypoint extends React.Component {
         console.log(position)
         this.setState({position})
 
-        ajax.getMrktsLonLat(here.state.position.coords.longitude, here.state.position.coords.latitude)
-          .then((data)=>{
-            this.setState({markets: data})
-            console.log(this.state.markets)
+        ajax.getZip(here.state.position.coords.longitude, here.state.position.coords.latitude)
+          .then((zip)=>{
+            ajax.getMrktsZip(zip)
+              .then((data)=>{
+                this.setState({markets: data})
+                console.log(this.state.markets)
+              })
           })
+
+        // ajax.getMrktsLonLat(here.state.position.coords.longitude, here.state.position.coords.latitude)
+        //   .then((data)=>{
+        //     this.setState({markets: data})
+        //     console.log(this.state.markets)
+        //   })
       }
     );
 
