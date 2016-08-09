@@ -4,8 +4,16 @@ export default class AjaxAdapter{
     if(!fetch) throw "We need the Fetch library to make this work, bru.";
   }
 
-  getMrkts(zip){
-    return fetch(`http://localhost:3000/mkts?zip=${zip}`).then(r => r.json()).then(r=>r)
+  getMrktsZip(zip){
+    return fetch(`http://localhost:3000/mkts?zip=${zip}`)
+      .then(r => r.json())
+      .then(r=>r)
+  }
+
+  getMrktsLonLat(long, lat) {
+    return fetch(`http://localhost:3000/mkts?longitude=${long}&latitude=${lat}`)
+      .then(r=>r.json())
+      .then(r=>r)
   }
 
 }

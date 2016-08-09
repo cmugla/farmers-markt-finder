@@ -32,8 +32,8 @@ class Waypoint extends React.Component {
     this.state = {
       position: {
         coords: {},
-        zip: '12009'
       },
+      zip: '12009',
       markets: []
     };
   } // look ma, no commas!
@@ -50,22 +50,23 @@ class Waypoint extends React.Component {
     // React Native allows for polyfills--code that provides functionality available in the browser, but
     // that is not currently available in the runtime environment on mobile devices ***
     // Geolocation is enabled by default when you create a project with react-native init.
-    //
-    // getCurrentPosition() and watchPostion() take a success callback, error callback, and options object
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => this.setState({position}),
-    //   (error) => alert(error.message),
-    //   {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    // );
-    // navigator.geolocation.watchPosition((position) => {
-    //   this.setState({position});
-    // });
 
-    ajax.getMrkts(this.state.position.zip)
-      .then((data)=>{
-        this.setState({markets: data})
-        console.log(this.state.markets)
-      })
+    // getCurrentPosition() and watchPostion() take a success callback, error callback, and options object
+    let here = this
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position)
+        this.setState({position})
+
+        ajax.getMrktsLonLat(here.state.position.coords.longitude, here.state.position.coords.latitude)
+          .then((data)=>{
+            this.setState({markets: data})
+            console.log(this.state.markets)
+          })
+      }
+    );
+
   }
 
   //Add title and current location to map
@@ -77,10 +78,20 @@ class Waypoint extends React.Component {
           {here.state.markets.map((market, id)=>{
             return (
               <Card key={id}>
-                <CardItem>
+                <CardItem header>
                   <Text>
                     {market.market_name}
                   </Text>
+                </CardItem>
+
+                <CardItem>
+                  <Text>{market.operation_hours}</Text>
+                  <Text>{market.address_line_1}</Text>
+                  <Text>{market.city}, {market.state}</Text>
+                </CardItem>
+
+                <CardItem header>
+                  <Text>{market.operation_season}</Text>
                 </CardItem>
               </Card>
             )

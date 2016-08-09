@@ -9,7 +9,8 @@ module.exports = {
       method:'get',
       json:true,
       qs: {
-        zip: req.query.zip
+        longitude: req.query.longitude,
+        latitude: req.query.latitude
       }
     },(err,response,body)=>{
       if(err) throw err;
