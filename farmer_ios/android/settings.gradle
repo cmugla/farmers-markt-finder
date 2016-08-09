@@ -1,0 +1,3 @@
+rootProject.name = 'farmer_ios'
+
+include ':app'
