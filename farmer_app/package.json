@@ -2,7 +2,7 @@
   "name": "farmer_app",
   "version": "1.0.0",
   "description": "An app for connecting the community with Farmers and the Farmer's Market",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +27,7 @@
   "homepage": "https://github.com/cmugla/farmers-markt-finder#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "path": "^0.12.7",
