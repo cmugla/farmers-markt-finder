@@ -11,10 +11,28 @@ import {
   Text,
   View,
   Header,
-  Title
+  Title,
+  InputGroup,
+  Icon,
+  Input,
+  Button
 } from 'native-base';
 
 export default class Markets extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      zipSearched: ''
+    }
+  }
+
+  handleSubmit() {
+    let zip = this.state.zipSearched
+    this.props.getMarkets(zip)
+  }
+
   render(){
     console.log("FROM MARKETS COMPONENET: ", this.props.location)
     return (
@@ -22,6 +40,23 @@ export default class Markets extends Component {
         <Content>
           <Header>
             <Title>Nearby Markets to {this.props.location}</Title>
+          </Header>
+          <Header searchBar rounded>
+            <InputGroup>
+              <Icon name="ios-search" />
+              <Input
+                placeholder="Enter Zip Code"
+                value={this.state.zipSearched}
+                onChangeText={(text)=>{
+                  this.setState({
+                    zipSearched: text
+                  })
+                }}
+              />
+            </InputGroup>
+            <Button transparent onPress={this.handleSubmit.bind(this)}>
+              Search
+            </Button>
           </Header>
           {this.props.marketData.map((market, id)=>{
             return (

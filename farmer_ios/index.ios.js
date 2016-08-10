@@ -19,9 +19,9 @@ import {
   Tabs
 } from 'native-base';
 
-import TabOne   from './components/TabOne'
-import TabTwo   from './components/TabTwo'
+import Search   from './components/Search'
 import Feed     from './components/Feed'
+import TabTwo   from './components/TabTwo'
 
 import Icon     from 'react-native-vector-icons/Ionicons'
 
@@ -78,6 +78,18 @@ class Waypoint extends React.Component {
     })
   }
 
+  getMarkets(zip) {
+    ajax.getMrktsZip(zip)
+      .then((data)=>{
+        this.setState({
+          markets: data,
+          zip: zip,
+          location_name: data.city
+        })
+        console.log(this.state.zip, this.state.location_name)
+      })
+  }
+
   render() {
     let here = this;
     let loggedIn;
@@ -106,20 +118,18 @@ class Waypoint extends React.Component {
           unselectedTintColor="#333"
           tintColor="darkslateblue">
           <TabBarIOS.Item
-            selected={this.state.selectedTab === 'tabTwo'}
+            selected={this.state.selectedTab === 'search'}
             systemIcon="search"
-            title="TabTwo"
             onPress={() => {
               this.setState({
-                selectedTab: 'tabTwo'
+                selectedTab: 'search'
               });
             }}>
-            <TabTwo/>
+            <Search getMarkets={this.getMarkets.bind(this)} />
           </TabBarIOS.Item>
           <TabBarIOS.Item
             selected={this.state.selectedTab === 'feed'}
             systemIcon="favorites"
-            title="Feed"
             onPress={() => {
               this.setState({
                 selectedTab: 'feed'
@@ -127,7 +137,8 @@ class Waypoint extends React.Component {
             }}>
             <Feed
               marketData={this.state.markets}
-              location={this.state.location_name} />
+              location={this.state.location_name}
+              getMarkets={this.getMarkets.bind(this)} />
           </TabBarIOS.Item>
         </TabBarIOS>
       </View>
