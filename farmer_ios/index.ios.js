@@ -4,7 +4,7 @@ import {
   StyleSheet,
   MapView,
   Navigator,
-  TouchableHighlight
+  TabBarIOS
 } from 'react-native';
 import {
   Container,
@@ -19,7 +19,11 @@ import {
   Tabs
 } from 'native-base';
 
-import Icon from 'react-native-vector-icons/Ionicons'
+import TabOne   from './components/TabOne'
+import TabTwo   from './components/TabTwo'
+import Feed     from './components/Feed'
+
+import Icon     from 'react-native-vector-icons/Ionicons'
 
 import AjaxAdapter from './helpers/ajaxAdapter.js'
 
@@ -38,7 +42,8 @@ class Waypoint extends React.Component {
       },
       zip: '',
       markets: [],
-      isLoggedIn: false
+      showLogin: false,
+      selectedTab: 'feed'
     };
   }
 
@@ -55,16 +60,15 @@ class Waypoint extends React.Component {
             ajax.getMrktsZip(zip)
               .then((data)=>{
                 this.setState({markets: data})
-                console.log(this.state.markets)
               })
           })
     //   }
     // );
   }
 
-  toggleLogin(){
+  toggleShowLogin(){
     this.setState({
-      isLoggedIn: !this.state.isLoggedIn
+      showLogin: !this.state.showLogin
     })
   }
 
@@ -72,18 +76,18 @@ class Waypoint extends React.Component {
     let here = this;
     let loggedIn;
 
-    console.log("logged In state: ", this.state.isLoggedIn)
+    console.log("logged In state: ", this.state.showLogin)
 
-    if(this.state.isLoggedIn) {
+    if(this.state.showLogin) {
       loggedIn = 'Hi!'
-    } else if(!this.state.isLoggedIn) {
+    } else if(!this.state.showLogin) {
       loggedIn = 'Login'
     }
 
     return (
       <Container>
         <Header>
-          <Button transparent onPress={this.toggleLogin.bind(this)}>
+          <Button transparent onPress={this.toggleShowLogin.bind(this)}>
             {loggedIn}
           </Button>
           <Title>NYC Markets</Title>
@@ -92,25 +96,7 @@ class Waypoint extends React.Component {
           </Button>
         </Header>
         <Content>
-          {here.state.markets.map((market, id)=>{
-            return (
-              <Card key={id} style={styles.margin}>
-                <CardItem header>
-                  <Text>
-                    {market.market_name}
-                  </Text>
-                </CardItem>
-                <CardItem>
-                  <Text>{market.operation_hours}</Text>
-                  <Text>{market.address_line_1}</Text>
-                  <Text>{market.city}, {market.state}</Text>
-                </CardItem>
-                <CardItem header>
-                  <Text>{market.operation_season}</Text>
-                </CardItem>
-              </Card>
-            )
-          })}
+          <Feed marketData={this.state.markets} />
         </Content>
       </Container>
     );
