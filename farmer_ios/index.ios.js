@@ -38,7 +38,7 @@ class Waypoint extends React.Component {
       },
       zip: '',
       markets: [],
-      isLoggedIn: 'false'
+      isLoggedIn: false
     };
   }
 
@@ -72,18 +72,18 @@ class Waypoint extends React.Component {
     let here = this;
     let loggedIn;
 
-    if(this.state.isLoggedIn){
-      loggedIn = <Text>Logged in!</Text>
-    } else {
-      loggedIn = <Text>Login</Text>
-    }
+    console.log("logged In state: ", this.state.isLoggedIn)
 
-    console.log(this.state.isLoggedIn)
+    if(this.state.isLoggedIn) {
+      loggedIn = 'Hi!'
+    } else if(!this.state.isLoggedIn) {
+      loggedIn = 'Login'
+    }
 
     return (
       <Container>
         <Header>
-          <Button transparent onClick={this.toggleLogin.bind(this)}>
+          <Button transparent onPress={this.toggleLogin.bind(this)}>
             {loggedIn}
           </Button>
           <Title>NYC Markets</Title>
