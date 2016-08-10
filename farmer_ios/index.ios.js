@@ -41,6 +41,7 @@ class Waypoint extends React.Component {
         },
       },
       zip: '',
+      location_name: '',
       markets: [],
       showLogin: false,
       selectedTab: 'feed'
@@ -56,10 +57,15 @@ class Waypoint extends React.Component {
     //     this.setState({position})
 
         ajax.getZip(here.state.position.coords.longitude, here.state.position.coords.latitude)
-          .then((zip)=>{
-            ajax.getMrktsZip(zip)
+          .then((address)=>{
+            ajax.getMrktsZip(address.zip)
               .then((data)=>{
-                this.setState({markets: data})
+                this.setState({
+                  markets: data,
+                  zip: address.zip,
+                  location_name: address.name
+                })
+                console.log(this.state.zip, this.state.location_name)
               })
           })
     //   }
@@ -100,17 +106,6 @@ class Waypoint extends React.Component {
           unselectedTintColor="#333"
           tintColor="darkslateblue">
           <TabBarIOS.Item
-            selected={this.state.selectedTab === 'tabOne'}
-            systemIcon="history"
-            title="TabOne"
-            onPress={() => {
-              this.setState({
-                selectedTab: 'tabOne'
-              });
-            }}>
-            <TabOne/>
-          </TabBarIOS.Item>
-          <TabBarIOS.Item
             selected={this.state.selectedTab === 'tabTwo'}
             systemIcon="search"
             title="TabTwo"
@@ -130,7 +125,9 @@ class Waypoint extends React.Component {
                 selectedTab: 'feed'
               });
             }}>
-            <Feed marketData={this.state.markets} />
+            <Feed
+              marketData={this.state.markets}
+              location={this.state.location_name} />
           </TabBarIOS.Item>
         </TabBarIOS>
       </View>

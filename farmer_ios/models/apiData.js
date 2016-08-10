@@ -31,9 +31,13 @@ module.exports = {
       if(err) throw err;
       console.log(body)
       let addressComponents = body.results[0].address_components
+      res.results = {}
       addressComponents.map((component)=>{
         if(component.types.includes("postal_code")) {
-          res.results = component.short_name;
+          res.results["zip"] = component.short_name
+        }
+        if(component.types.includes("neighborhood")) {
+          res.results["name"] = component.short_name
         }
       })
       next();

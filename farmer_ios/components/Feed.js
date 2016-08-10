@@ -9,15 +9,20 @@ import {
   Card,
   CardItem,
   Text,
-  View
+  View,
+  Header,
+  Title
 } from 'native-base';
 
 export default class Markets extends Component {
   render(){
-    console.log("FROM MARKETS COMPONENET: ", this.props.marketData)
+    console.log("FROM MARKETS COMPONENET: ", this.props.location)
     return (
       <Container>
         <Content>
+          <Header>
+            <Title>Nearby Markets to {this.props.location}</Title>
+          </Header>
           {this.props.marketData.map((market, id)=>{
             return (
               <Card key={id} style={styles.margin}>
@@ -31,8 +36,8 @@ export default class Markets extends Component {
                   <Text>{market.address_line_1}</Text>
                   <Text>{market.city}, {market.state}</Text>
                 </CardItem>
-                <CardItem header>
-                  <Text>{market.operation_season}</Text>
+                <CardItem style={styles.footer}>
+                  <Text style={styles.right}>{market.operation_season}</Text>
                 </CardItem>
               </Card>
             )
@@ -46,5 +51,12 @@ export default class Markets extends Component {
 const styles = StyleSheet.create({
   margin: {
     margin:10
+  },
+  right: {
+    textAlign: 'right'
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: 'white'
   }
 })
