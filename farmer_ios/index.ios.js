@@ -85,7 +85,7 @@ class Waypoint extends React.Component {
     }
 
     return (
-      <Container>
+      <View>
         <Header>
           <Button transparent onPress={this.toggleShowLogin.bind(this)}>
             {loggedIn}
@@ -95,10 +95,45 @@ class Waypoint extends React.Component {
             Create
           </Button>
         </Header>
-        <Content>
-          <Feed marketData={this.state.markets} />
-        </Content>
-      </Container>
+        <TabBarIOS
+          selectedTab={this.state.selectedTab}
+          unselectedTintColor="#333"
+          tintColor="darkslateblue">
+          <TabBarIOS.Item
+            selected={this.state.selectedTab === 'tabOne'}
+            systemIcon="history"
+            title="TabOne"
+            onPress={() => {
+              this.setState({
+                selectedTab: 'tabOne'
+              });
+            }}>
+            <TabOne/>
+          </TabBarIOS.Item>
+          <TabBarIOS.Item
+            selected={this.state.selectedTab === 'tabTwo'}
+            systemIcon="search"
+            title="TabTwo"
+            onPress={() => {
+              this.setState({
+                selectedTab: 'tabTwo'
+              });
+            }}>
+            <TabTwo/>
+          </TabBarIOS.Item>
+          <TabBarIOS.Item
+            selected={this.state.selectedTab === 'feed'}
+            systemIcon="favorites"
+            title="Feed"
+            onPress={() => {
+              this.setState({
+                selectedTab: 'feed'
+              });
+            }}>
+            <Feed marketData={this.state.markets} />
+          </TabBarIOS.Item>
+        </TabBarIOS>
+      </View>
     );
   }
 }
