@@ -84,7 +84,7 @@ class Waypoint extends React.Component {
         this.setState({
           markets: data,
           zip: zip,
-          location_name: data.city
+          location_name: data[0].city
         })
         console.log(this.state.zip, this.state.location_name)
       })
@@ -117,16 +117,6 @@ class Waypoint extends React.Component {
           selectedTab={this.state.selectedTab}
           unselectedTintColor="#333"
           tintColor="darkslateblue">
-          <TabBarIOS.Item
-            selected={this.state.selectedTab === 'search'}
-            systemIcon="search"
-            onPress={() => {
-              this.setState({
-                selectedTab: 'search'
-              });
-            }}>
-            <Search getMarkets={this.getMarkets.bind(this)} />
-          </TabBarIOS.Item>
           <TabBarIOS.Item
             selected={this.state.selectedTab === 'feed'}
             systemIcon="favorites"

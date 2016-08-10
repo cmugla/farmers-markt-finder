@@ -18,6 +18,8 @@ import {
   Button
 } from 'native-base';
 
+import OpenUrlButton from './OpenUrlButton'
+
 export default class Markets extends Component {
 
   constructor(props) {
@@ -73,6 +75,9 @@ export default class Markets extends Component {
                 </CardItem>
                 <CardItem style={styles.footer}>
                   <Text style={styles.right}>{market.operation_season}</Text>
+                </CardItem>
+                <CardItem>
+                  <OpenUrlButton url={market.market_link.url} />
                 </CardItem>
               </Card>
             )
