@@ -38,13 +38,8 @@ export default class Login extends Component {
     }
   }
 
-  handleLoginPress(){
-    let email     = this.state.inputs.email
-    let password  = this.state.inputs.password
-    this.props.checkLogin(email, password)
-  }
-
   _userLogin() {
+    let here = this
     var value = this.state;
     if (value) { // if validation fails, value will be null
       fetch("http://localhost:3000/userapi/authenticate", {
@@ -61,10 +56,8 @@ export default class Login extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         console.log("FROM LOGIN: ", responseData)
-        AlertIOS.alert(
-          "Login Success!"
-        ),
         this._onValueChange(STORAGE_KEY, responseData.id_token)
+        here.props.toggleLogin()
       })
       .catch((err)=>{
         if(err) console.log(err)

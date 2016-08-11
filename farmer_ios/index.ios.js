@@ -83,21 +83,26 @@ class App extends Component {
   toggleShowLogin(){
     this.setState({
       onHome: false,
-      showLogin: !this.state.showLogin
+      showLogin: !this.state.showLogin,
+      showSignUp: false,
+      showFarmer: false
     })
   }
 
   toggleShowSignUP(){
     this.setState({
       onHome: false,
-      showSignUp: !this.state.showSignUp
+      showSignUp: !this.state.showSignUp,
+      showLogin: false,
+      showFarmer: false
     })
   }
 
   toggleShowGuest(){
     this.setState({
       onHome: false,
-      showGuest: !this.state.showGuest
+      showGuest: !this.state.showGuest,
+      showFarmer: false
     })
   }
 
@@ -118,8 +123,13 @@ class App extends Component {
       })
   }
 
-  checkLogin(email, password){
-
+  loginFarmer(){
+    this.setState({
+      showFarmer: true,
+      showLogin: false,
+      showSignUp: false,
+      onHome: false
+    })
   }
 
   signUpFarmer(email, password, name, market_name){
@@ -131,6 +141,8 @@ class App extends Component {
     let loggedIn;
 
     console.log("logged In state: ", this.state.showLogin)
+    console.log("show farmer state: ", this.state.showFarmer)
+    console.log("show sign up state: ", this.state.showSignUp)
 
     if(this.state.showLogin) {
       loggedIn = 'Hi!'
@@ -153,7 +165,7 @@ class App extends Component {
               {loggedIn}
             </Button>
             <Title>NYC Markets</Title>
-            <Button transparent>
+            <Button transparent onPress={this.toggleShowSignUP.bind(this)}>
               Create
             </Button>
           </Header>
@@ -192,7 +204,7 @@ class App extends Component {
               Create
             </Button>
           </Header>
-          <Login checkLogin={this.checkLogin.bind(this)} />
+          <Login toggleLogin={this.loginFarmer.bind(this)} />
         </View>
       )
     } else if(!this.state.onHome && this.state.showSignUp) {
@@ -210,17 +222,11 @@ class App extends Component {
           <SignUp signUp={this.signUpFarmer.bind(this)} />
         </View>
       )
-    } else if(!this.state.onHome && this.state.showFarmer) {
+    } else if(this.state.showFarmer) {
       return (
         <View>
           <Header>
-            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-              {loggedIn}
-            </Button>
             <Title>NYC Markets</Title>
-            <Button transparent>
-              Create
-            </Button>
           </Header>
           <TabBarIOS
             selectedTab={this.state.selectedTab}
@@ -243,7 +249,6 @@ class App extends Component {
               }
             </TabBarIOS.Item>
             <TabBarIOS.Item
-              selected={this.state.selectedTab === 'post'}
               icon="create"
               onPress={() => {
                 this.setState({
@@ -253,14 +258,19 @@ class App extends Component {
               <Post />
             </TabBarIOS.Item>
             <TabBarIOS.Item
-              selected={this.state.selectedTab === 'profile'}
-              systemIcon="contacts"
+              systemIcon="favorites"
               onPress={() => {
                 this.setState({
-                  selectedTab: 'profile'
+                  selectedTab: 'feed'
                 });
               }}>
-              <Profile />
+              {this.state.loading?
+                <Spinner color="blue"/>
+                : <Feed
+                    marketData={this.state.markets}
+                    location={this.state.location_name}
+                    getMarkets={this.getMarkets.bind(this)} />
+              }
             </TabBarIOS.Item>
           </TabBarIOS>
         </View>
