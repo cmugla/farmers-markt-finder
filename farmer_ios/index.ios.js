@@ -122,6 +122,10 @@ class App extends Component {
 
   }
 
+  signUpFarmer(email, password, name, market_name){
+
+  }
+
   render() {
     let here = this;
     let loggedIn;
@@ -203,7 +207,7 @@ class App extends Component {
               Create
             </Button>
           </Header>
-          <SignUp />
+          <SignUp signUp={this.signUpFarmer.bind(this)} />
         </View>
       )
     } else if(!this.state.onHome && this.state.showFarmer) {
