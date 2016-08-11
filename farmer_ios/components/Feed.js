@@ -69,11 +69,11 @@ export default class Markets extends Component {
                   </Text>
                 </CardItem>
                 <CardItem>
-                  <Text>{market.operation_hours}</Text>
                   <Text>{market.address_line_1}</Text>
                   <Text>{market.city}, {market.state}</Text>
                 </CardItem>
                 <CardItem style={styles.footer}>
+                  <Text style={styles.right}>{market.operation_hours}</Text>
                   <Text style={styles.right}>{market.operation_season}</Text>
                 </CardItem>
                 <CardItem>

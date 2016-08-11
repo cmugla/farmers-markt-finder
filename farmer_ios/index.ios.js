@@ -19,7 +19,6 @@ import {
   Tabs
 } from 'native-base';
 
-import Search   from './components/Search'
 import Feed     from './components/Feed'
 import TabTwo   from './components/TabTwo'
 
@@ -29,7 +28,7 @@ import AjaxAdapter from './helpers/ajaxAdapter.js'
 
 const ajax = new AjaxAdapter(fetch);
 
-class Waypoint extends React.Component {
+class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -145,9 +144,4 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('farmer_ios', () => Waypoint);
-
-
-
-
-
+AppRegistry.registerComponent('farmer_ios', () => App);
