@@ -76,9 +76,11 @@ export default class Markets extends Component {
                   <Text style={styles.right}>{market.operation_hours}</Text>
                   <Text style={styles.right}>{market.operation_season}</Text>
                 </CardItem>
-                <CardItem>
-                  <OpenUrlButton url={market.market_link.url} />
-                </CardItem>
+                {market.market_link ?
+                  <CardItem>
+                    <OpenUrlButton url={market.market_link.url} />
+                  </CardItem> : null
+                }
               </Card>
             )
           })}

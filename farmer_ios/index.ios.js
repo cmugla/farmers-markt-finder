@@ -16,7 +16,8 @@ import {
   Header,
   Title,
   Button,
-  Tabs
+  Tabs,
+  Spinner
 } from 'native-base';
 
 import Feed     from './components/Feed'
@@ -43,7 +44,8 @@ class App extends React.Component {
       location_name: '',
       markets: [],
       showLogin: false,
-      selectedTab: 'feed'
+      selectedTab: 'feed',
+      loading: true
     };
   }
 
@@ -62,7 +64,8 @@ class App extends React.Component {
                 this.setState({
                   markets: data,
                   zip: address.zip,
-                  location_name: address.name
+                  location_name: address.name,
+                  loading: false
                 })
                 console.log(this.state.zip, this.state.location_name)
               })
@@ -78,12 +81,17 @@ class App extends React.Component {
   }
 
   getMarkets(zip) {
+    this.setState({
+      loading:true
+    })
+
     ajax.getMrktsZip(zip)
       .then((data)=>{
         this.setState({
           markets: data,
           zip: zip,
-          location_name: data[0].city
+          location_name: data[0].city,
+          loading:false
         })
         console.log(this.state.zip, this.state.location_name)
       })
@@ -124,10 +132,13 @@ class App extends React.Component {
                 selectedTab: 'feed'
               });
             }}>
-            <Feed
-              marketData={this.state.markets}
-              location={this.state.location_name}
-              getMarkets={this.getMarkets.bind(this)} />
+            {this.state.loading?
+              <Spinner />
+              : <Feed
+                  marketData={this.state.markets}
+                  location={this.state.location_name}
+                  getMarkets={this.getMarkets.bind(this)} />
+            }
           </TabBarIOS.Item>
         </TabBarIOS>
       </View>
