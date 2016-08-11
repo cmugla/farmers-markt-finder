@@ -19,7 +19,7 @@
   - React Native: front-end user interface
     - Integrated with the <a href="http://nativebase.io/" target="_blank">NativeBase</a> framework
   - API: <a href="https://data.ny.gov/Economic-Development/Farmers-Markets-in-New-York-State-API/xjya-f8ng" target="_blank">Farmers Markets in NYC</a>
-  - API: <a href="http://maps.googleapis.com/maps/api/geocode/json" target="_blank">Google Maps API</a>
+  - API: <a href="http://maps.googleapis.com/maps/api/geocode/json" target="_blank">Google Maps API</a> - converts lat and long to zip code for easier communication to Farmer's Market API
   - PSQL: 
     - User table stores user name (and login info), favorite markets, and favorite farms
     - Farmer table stores Farmer's name/contact info and their updates
@@ -33,3 +33,8 @@
 ## Special Thanks
 
   - <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank">React Native Docs</a>
+  - Blog posts about:
+    - <a href="https://www.appcoda.com/react-native-introduction/" target="_blank">Building with React Native</a>
+    - <a href="https://www.appcoda.com/nativebase-sponsor/" target="_blank">Building with Native Base</a>
+  - Stack Overflow for existing
+  - <a href="https://github.com/michaelshamah" target="_blank">Michael Shamah</a> for bouncing XCode Simulator, React Native, and NativeBase issues off of
