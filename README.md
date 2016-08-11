@@ -35,7 +35,8 @@
   - <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank">React Native Docs</a>
   - Blog posts about:
     - <a href="https://www.appcoda.com/react-native-introduction/" target="_blank">Building with React Native</a>
-    - <a href="https://www.appcoda.com/nativebase-sponsor/" target="_blank">Building with Native Base</a>
+    - <a href="https://www.appcoda.com/nativebase-sponsor/" target="_blank">Building with NativeBase</a>
+    - <a href="https://scotch.io/tutorials/nativebase-the-missing-piece-of-react-native%E2%80%8B" target="_blank">Tutorials for NativeBase building</a>
   - Stack Overflow for existing
   - <a href="https://github.com/GeekyAnts/nativebase-tutorial?utm_source=syndicate&utm_medium=post&utm_campaign=scotch-jul2016" target="_blank">Geeky Ants Github</a>
   - <a href="https://auth0.com/blog/adding-authentication-to-react-native-using-jwt/" target="_blank">AuthO</a> for help with user auth and AsyncStorage
