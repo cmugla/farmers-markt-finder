@@ -123,7 +123,7 @@ class App extends React.Component {
         <TabBarIOS
           selectedTab={this.state.selectedTab}
           unselectedTintColor="#333"
-          tintColor="darkslateblue">
+          tintColor="crimson">
           <TabBarIOS.Item
             selected={this.state.selectedTab === 'feed'}
             systemIcon="favorites"
