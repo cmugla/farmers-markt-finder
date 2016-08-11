@@ -22,6 +22,8 @@ import {
 
 import Feed     from './components/Feed'
 import Homepage from './components/Homepage'
+import Login    from './components/Login'
+import SignUp   from './components/SignUp'
 
 import Icon     from 'react-native-vector-icons/Ionicons'
 
