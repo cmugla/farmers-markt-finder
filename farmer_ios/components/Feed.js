@@ -79,7 +79,8 @@ export default class Markets extends Component {
                 {market.market_link ?
                   <CardItem>
                     <OpenUrlButton url={market.market_link.url} />
-                  </CardItem> : null
+                  </CardItem>
+                  : null
                 }
               </Card>
             )
