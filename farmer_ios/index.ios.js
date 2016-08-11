@@ -133,7 +133,7 @@ class App extends React.Component {
               });
             }}>
             {this.state.loading?
-              <Spinner />
+              <Spinner color="blue"/>
               : <Feed
                   marketData={this.state.markets}
                   location={this.state.location_name}
