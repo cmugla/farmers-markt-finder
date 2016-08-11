@@ -16,11 +16,12 @@ import {
   Header,
   Title,
   Button,
-  Tabs
+  Tabs,
+  Spinner
 } from 'native-base';
 
 import Feed     from './components/Feed'
-import TabTwo   from './components/TabTwo'
+import Homepage from './components/Homepage'
 
 import Icon     from 'react-native-vector-icons/Ionicons'
 
@@ -43,7 +44,11 @@ class App extends React.Component {
       location_name: '',
       markets: [],
       showLogin: false,
-      selectedTab: 'feed'
+      showGuest: false,
+      showSignUp: false,
+      selectedTab: 'feed',
+      loading: true,
+      onHome: true
     };
   }
 
@@ -62,7 +67,8 @@ class App extends React.Component {
                 this.setState({
                   markets: data,
                   zip: address.zip,
-                  location_name: address.name
+                  location_name: address.name,
+                  loading: false
                 })
                 console.log(this.state.zip, this.state.location_name)
               })
@@ -73,17 +79,37 @@ class App extends React.Component {
 
   toggleShowLogin(){
     this.setState({
+      onHome: false,
       showLogin: !this.state.showLogin
     })
   }
 
+  toggleShowSignUP(){
+    this.setState({
+      onHome: false,
+      showSignUp: !this.state.showSignUp
+    })
+  }
+
+  toggleShowGuest(){
+    this.setState({
+      onHome: false,
+      showGuest: !this.state.showGuest
+    })
+  }
+
   getMarkets(zip) {
+    this.setState({
+      loading:true
+    })
+
     ajax.getMrktsZip(zip)
       .then((data)=>{
         this.setState({
           markets: data,
           zip: zip,
-          location_name: data[0].city
+          location_name: data[0].city,
+          loading:false
         })
         console.log(this.state.zip, this.state.location_name)
       })
@@ -101,37 +127,49 @@ class App extends React.Component {
       loggedIn = 'Login'
     }
 
-    return (
-      <View>
-        <Header>
-          <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-            {loggedIn}
-          </Button>
-          <Title>NYC Markets</Title>
-          <Button transparent>
-            Create
-          </Button>
-        </Header>
-        <TabBarIOS
-          selectedTab={this.state.selectedTab}
-          unselectedTintColor="#333"
-          tintColor="darkslateblue">
-          <TabBarIOS.Item
-            selected={this.state.selectedTab === 'feed'}
-            systemIcon="favorites"
-            onPress={() => {
-              this.setState({
-                selectedTab: 'feed'
-              });
-            }}>
-            <Feed
-              marketData={this.state.markets}
-              location={this.state.location_name}
-              getMarkets={this.getMarkets.bind(this)} />
-          </TabBarIOS.Item>
-        </TabBarIOS>
-      </View>
-    );
+    if(this.state.onHome) {
+      return(
+        <Homepage
+          login={this.toggleShowLogin.bind(this)}
+          signUp={this.toggleShowSignUP.bind(this)}
+          skip={this.toggleShowGuest.bind(this)} />
+      )
+    } else if(!this.state.onHome && this.state.showGuest) {
+      return (
+        <View>
+          <Header>
+            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
+              {loggedIn}
+            </Button>
+            <Title>NYC Markets</Title>
+            <Button transparent>
+              Create
+            </Button>
+          </Header>
+          <TabBarIOS
+            selectedTab={this.state.selectedTab}
+            unselectedTintColor="#333"
+            tintColor="crimson">
+            <TabBarIOS.Item
+              selected={this.state.selectedTab === 'feed'}
+              systemIcon="favorites"
+              onPress={() => {
+                this.setState({
+                  selectedTab: 'feed'
+                });
+              }}>
+              {this.state.loading?
+                <Spinner color="blue"/>
+                : <Feed
+                    marketData={this.state.markets}
+                    location={this.state.location_name}
+                    getMarkets={this.getMarkets.bind(this)} />
+              }
+            </TabBarIOS.Item>
+          </TabBarIOS>
+        </View>
+      );
+    }
   }
 }
 
