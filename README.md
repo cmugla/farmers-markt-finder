@@ -38,4 +38,5 @@
     - <a href="https://www.appcoda.com/nativebase-sponsor/" target="_blank">Building with Native Base</a>
   - Stack Overflow for existing
   - <a href="https://github.com/GeekyAnts/nativebase-tutorial?utm_source=syndicate&utm_medium=post&utm_campaign=scotch-jul2016" target="_blank">Geeky Ants Github</a>
+  - <a href="https://auth0.com/blog/adding-authentication-to-react-native-using-jwt/" target="_blank">AuthO</a> for help with user auth and AsyncStorage
   - <a href="https://github.com/michaelshamah" target="_blank">Michael Shamah</a> for bouncing XCode Simulator, React Native, and NativeBase issues off of
