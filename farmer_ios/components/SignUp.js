@@ -15,7 +15,9 @@ import {
   InputGroup,
   Icon,
   Input,
-  Button
+  Button,
+  List,
+  ListItem
 } from 'native-base';
 
 export default class SignUp extends Component {
@@ -39,7 +41,7 @@ export default class SignUp extends Component {
 
           <ListItem>
             <InputGroup >
-              <Input inlineLabel label="NAME" placeholder="John Doe" />
+              <Input inlineLabel label="NAME" placeholder="Name of Farm" />
             </InputGroup>
           </ListItem>
 
@@ -49,7 +51,7 @@ export default class SignUp extends Component {
             </InputGroup>
           </ListItem>
         </List>
-        <Button>
+        <Button style={{margin: 10}}>
           SIGNUP
         </Button>
       </Content>

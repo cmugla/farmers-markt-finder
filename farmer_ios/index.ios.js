@@ -118,6 +118,10 @@ class App extends Component {
       })
   }
 
+  checkLogin(email, password){
+
+  }
+
   render() {
     let here = this;
     let loggedIn;
@@ -184,7 +188,7 @@ class App extends Component {
               Create
             </Button>
           </Header>
-          <Login />
+          <Login checkLogin={this.checkLogin.bind(this)} />
         </View>
       )
     } else if(!this.state.onHome && this.state.showSignUp) {
