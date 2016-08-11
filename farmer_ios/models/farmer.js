@@ -45,9 +45,9 @@ module.exports = {
     createSecure(req.body.password)
       .then( hash=>{
         _db.one(`
-          INSERT INTO farmers (name, email, password_digest)
-          VALUES ($1, $2, $3)
-          returning *;`,[req.body.name, req.body.email, hash]
+          INSERT INTO farmers (name, email, market_name, password_digest)
+          VALUES ($1, $2, $3, $4)
+          returning *;`,[req.body.name, req.body.username, req.body.market_name, hash]
         )
         .then( newUser=> {
           console.log(newUser)

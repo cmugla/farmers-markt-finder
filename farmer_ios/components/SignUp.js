@@ -59,7 +59,7 @@ export default class SignUp extends Component {
         method: "POST",
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json; charset=UTF-8'
         },
         body: JSON.stringify({
           username: value.email,
@@ -70,7 +70,7 @@ export default class SignUp extends Component {
       })
       .then((response) => response.json())
       .then((responseData) => {
-        this._onValueChange(STORAGE_KEY, responseData.id_token),
+        // this._onValueChange(STORAGE_KEY, responseData.id_token),
         AlertIOS.alert(
           "Signup Success!"
         )
