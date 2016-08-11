@@ -29,7 +29,7 @@ import AjaxAdapter from './helpers/ajaxAdapter.js'
 
 const ajax = new AjaxAdapter(fetch);
 
-class App extends React.Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
@@ -46,6 +46,7 @@ class App extends React.Component {
       showLogin: false,
       showGuest: false,
       showSignUp: false,
+      showFarmer: false,
       selectedTab: 'feed',
       loading: true,
       onHome: true
@@ -169,6 +170,91 @@ class App extends React.Component {
           </TabBarIOS>
         </View>
       );
+    } else if(!this.state.onHome && this.state.showLogin) {
+      return (
+        <View>
+          <Header>
+            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
+              {loggedIn}
+            </Button>
+            <Title>NYC Markets</Title>
+            <Button transparent>
+              Create
+            </Button>
+          </Header>
+          <Login />
+        </View>
+      )
+    } else if(!this.state.onHome && this.state.showSignUp) {
+      return (
+        <View>
+          <Header>
+            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
+              {loggedIn}
+            </Button>
+            <Title>NYC Markets</Title>
+            <Button transparent>
+              Create
+            </Button>
+          </Header>
+          <SignUp />
+        </View>
+      )
+    } else if(!this.state.onHome && this.state.showFarmer) {
+      return (
+        <View>
+          <Header>
+            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
+              {loggedIn}
+            </Button>
+            <Title>NYC Markets</Title>
+            <Button transparent>
+              Create
+            </Button>
+          </Header>
+          <TabBarIOS
+            selectedTab={this.state.selectedTab}
+            unselectedTintColor="#333"
+            tintColor="crimson">
+            <TabBarIOS.Item
+              selected={this.state.selectedTab === 'feed'}
+              systemIcon="favorites"
+              onPress={() => {
+                this.setState({
+                  selectedTab: 'feed'
+                });
+              }}>
+              {this.state.loading?
+                <Spinner color="blue"/>
+                : <Feed
+                    marketData={this.state.markets}
+                    location={this.state.location_name}
+                    getMarkets={this.getMarkets.bind(this)} />
+              }
+            </TabBarIOS.Item>
+            <TabBarIOS.Item
+              selected={this.state.selectedTab === 'post'}
+              icon="create"
+              onPress={() => {
+                this.setState({
+                  selectedTab: 'post'
+                });
+              }}>
+              <Post />
+            </TabBarIOS.Item>
+            <TabBarIOS.Item
+              selected={this.state.selectedTab === 'profile'}
+              systemIcon="contacts"
+              onPress={() => {
+                this.setState({
+                  selectedTab: 'profile'
+                });
+              }}>
+              <Profile />
+            </TabBarIOS.Item>
+          </TabBarIOS>
+        </View>
+      )
     }
   }
 }
