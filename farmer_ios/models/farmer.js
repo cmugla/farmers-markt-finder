@@ -19,7 +19,7 @@ module.exports = {
     _db.one(`
       SELECT *
       FROM farmers
-      WHERE email = lower(trim(from $/email/));
+      WHERE email = $/username/;
       `, req.body)
       .then( user=>{
 
@@ -34,7 +34,7 @@ module.exports = {
       })
       /* NOTE: NO USERS or all ERRORS*/
       .catch( error=>{
-        console.error('Error ', error);
+        console.error('Error at getting user ', error);
         res.error = error
         next()
       })

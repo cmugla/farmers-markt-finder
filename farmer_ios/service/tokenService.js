@@ -3,8 +3,8 @@ const jwt     = require('jsonwebtoken');
 function getTokenFromHeader(req) {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
     return req.headers.authorization.split(' ')[1];
-  } else if (req.query && req.query.id_token) {
-    return req.query.id_token;
+  } else if (req.query && req.query.token) {
+    return req.query.token;
   }
   return null;
 }
@@ -18,14 +18,14 @@ module.exports={
     const token = jwt.sign({username,farmer_id}, 'superSecret', {
       expiresIn: 30 // expires in 30 seconds
     });
-
+    console.log(token)
     // return the information including token as JSON
     return res.json({
       success: true,
       message: 'Enjoy your token!',
       id_token: token,
       username: res.user.email
-    });
+    })
   },
 
   validateToken(req,res,next){

@@ -17,7 +17,7 @@ import {
   ListItem
 } from 'native-base';
 
-const STORAGE_KEY = 'id_token';
+var STORAGE_KEY = 'id_token';
 
 const options = {};
 
@@ -70,6 +70,7 @@ export default class SignUp extends Component {
       })
       .then((response) => response.json())
       .then((responseData) => {
+        console.log("From signup: ",responseData)
         // this._onValueChange(STORAGE_KEY, responseData.id_token),
         AlertIOS.alert(
           "Signup Success!"
