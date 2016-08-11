@@ -17,6 +17,7 @@
   
   - NodeJS: back-end server with models for api data and user data
   - React Native: front-end user interface
+    - Integrated with the <a href="http://nativebase.io/" target="_blank">NativeBase</a> framework
   - API: <a href="https://data.ny.gov/Economic-Development/Farmers-Markets-in-New-York-State-API/xjya-f8ng" target="_blank">Farmers Markets in NYC</a>
   - API: <a href="http://maps.googleapis.com/maps/api/geocode/json" target="_blank">Google Maps API</a>
   - PSQL: 
