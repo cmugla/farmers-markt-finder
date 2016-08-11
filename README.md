@@ -27,6 +27,8 @@
 
   Three different Experiences: guest, user, and farmer
   
-  [![wireframes](./wireframes/IMG_0079.JPG)]
+  ![wireframes](./wireframes/IMG_0079.JPG)
 
 ## Special Thanks
+
+  - <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank">React Native Docs</a>
