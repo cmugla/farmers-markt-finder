@@ -15,14 +15,18 @@
 
 ## Technologies
   
-  - Ruby on Rails or NodeJS: back-end server
+  - NodeJS: back-end server with models for api data and user data
   - React Native: front-end user interface
   - API: <a href="https://data.ny.gov/Economic-Development/Farmers-Markets-in-New-York-State-API/xjya-f8ng" target="_blank">Farmers Markets in NYC</a>
-  - API: <a href="https://developers.google.com/maps/documentation/" target="_blank">Google Maps API</a>
+  - API: <a href="http://maps.googleapis.com/maps/api/geocode/json" target="_blank">Google Maps API</a>
   - PSQL: 
     - User table stores user name (and login info), favorite markets, and favorite farms
     - Farmer table stores Farmer's name/contact info and their updates
 
 ## Wireframes
+
+  Three different Experiences: guest, user, and farmer
+  
+  [![wireframes](./wireframes/IMG_0079.JPG)]
 
 ## Special Thanks
