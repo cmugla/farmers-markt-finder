@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage,
+  AlertIOS
 } from 'react-native';
 import {
-  Container,
   Content,
-  Card,
-  CardItem,
   Text,
   View,
-  Header,
-  Title,
   InputGroup,
   Icon,
   Input,
@@ -20,18 +17,20 @@ import {
   ListItem
 } from 'native-base';
 
+const STORAGE_KEY = 'id_token';
+
+const options = {};
+
 export default class SignUp extends Component {
 
   constructor(props){
     super(props)
 
     this.state = {
-      inputs: {
-        email: '',
-        password: '',
-        name: '',
-        market_name: ''
-      }
+      email: '',
+      password: '',
+      name: '',
+      market_name: ''
     }
   }
 
@@ -44,6 +43,45 @@ export default class SignUp extends Component {
     this.props.signUp(email, password, name, market_name)
   }
 
+  async _onValueChange(item, selectedValue) {
+    try {
+      await AsyncStorage.setItem(item, selectedValue);
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  _userSignup() {
+    console.log("INPUTS: ", this.state)
+    var value = this.state
+    if (value) { // if validation fails, value will be null
+      fetch("http://localhost:3000/userapi/users", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: value.email,
+          password: value.password,
+          name: value.name,
+          market_name: value.market_name
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        this._onValueChange(STORAGE_KEY, responseData.id_token),
+        AlertIOS.alert(
+          "Signup Success!"
+        )
+      })
+      .catch((err)=>{
+        if(err) console.log(err)
+      })
+      .done();
+    }
+  }
+
   render(){
     return (
       <Content>
@@ -53,12 +91,10 @@ export default class SignUp extends Component {
               <Icon name="ios-person" />
               <Input
                 placeholder="EMAIL"
-                value={this.state.inputs.email}
+                value={this.state.email}
                 onChangeText={(text)=>{
                   this.setState({
-                    inputs: {
                       email: text
-                    }
                   })
                 }} />
             </InputGroup>
@@ -70,12 +106,10 @@ export default class SignUp extends Component {
               <Input
                 placeholder="PASSWORD"
                 secureTextEntry={true}
-                value={this.state.inputs.password}
+                value={this.state.password}
                 onChangeText={(text)=>{
                   this.setState({
-                    inputs: {
-                      password: text
-                    }
+                    password: text
                   })
                 }} />
             </InputGroup>
@@ -87,12 +121,10 @@ export default class SignUp extends Component {
                 inlineLabel
                 label="NAME"
                 placeholder="Name of Farm"
-                value={this.state.inputs.name}
+                value={this.state.name}
                 onChangeText={(text)=>{
                   this.setState({
-                    inputs: {
-                      name: text
-                    }
+                    name: text
                   })
                 }} />
             </InputGroup>
@@ -104,18 +136,16 @@ export default class SignUp extends Component {
                 stackedLabel
                 label="MARKET NAME"
                 placeholder="Name of Farmer's Market"
-                value={this.state.inputs.market_name}
+                value={this.state.market_name}
                 onChangeText={(text)=>{
                   this.setState({
-                    inputs: {
-                      market_name: text
-                    }
+                    market_name: text
                   })
                 }}/>
             </InputGroup>
           </ListItem>
         </List>
-        <Button style={{margin: 10}} onPress={this.handleSignUpPress.bind(this)}>
+        <Button style={{margin: 10}} onPress={this._userSignup.bind(this)}>
           SIGNUP
         </Button>
       </Content>

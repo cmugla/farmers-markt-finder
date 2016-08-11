@@ -18,7 +18,7 @@ module.exports = {
     /* trim and lowercase the username before we try to match it */
     _db.one(`
       SELECT *
-      FROM users
+      FROM farmers
       WHERE email = lower(trim(from $/email/));
       `, req.body)
       .then( user=>{
@@ -45,7 +45,7 @@ module.exports = {
     createSecure(req.body.password)
       .then( hash=>{
         _db.one(`
-          INSERT INTO users (name, email, password_digest)
+          INSERT INTO farmers (name, email, password_digest)
           VALUES ($1, $2, $3)
           returning *;`,[req.body.name, req.body.email, hash]
         )
