@@ -52,6 +52,10 @@ export default class Markets extends Component {
     ajax.addMarket(data)
       .then(data=>{
         console.log("Saved Market: ", data)
+        ajax.updateFarmer(data)
+          .then(data=>{
+            console.log("Updated Farmer: ", data)
+          })
       })
   }
 

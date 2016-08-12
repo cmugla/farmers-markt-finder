@@ -9,9 +9,13 @@ const userService = require('../models/farmer')
 const sendError = (err,req,res,next)=>res.status(500).json(err)
 
 users.post('/',
-    userService.createUser,
-    (req,res) => res.status(201).json({data: 'success'}).end()
+  userService.createUser,
+  (req,res) => res.status(201).json({data: 'success'}).end()
 )
+
+users.put('/',
+  userService.updateFarmer,
+  (req,res) => res.json(res.rows))
 
 users.use( tokenService.validateToken )
 

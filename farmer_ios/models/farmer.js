@@ -93,6 +93,24 @@ module.exports = {
       })
   },
 
+  updateFarmer(req,res,next){
+    console.log('===== update farmer info =====', req.body);
+    _db.one(`
+      UPDATE farmers
+      SET market_id = $/market_id/
+      WHERE farmer_id = $/farmer_id/
+      RETURNING *;
+      `, req.body)
+      .then( farmer_info=>{
+        console.log('Updated farmer_info successfully');
+        res.rows = farmer_info;
+        next()
+      })
+      .catch( error=>{
+        console.error('Error in updating farmer ', error)
+      })
+  }
+
 }
 
 

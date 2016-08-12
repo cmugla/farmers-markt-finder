@@ -46,4 +46,16 @@ export default class AjaxAdapter{
     .then(r=>r)
   }
 
+  updateFarmer(data){
+    return fetch(`http://localhost:3000/userapi/users`, {
+      method: 'put',
+      headers: {
+        "Content-type" : "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(r=>r.json())
+    .then(r=>r)
+  }
+
 }
