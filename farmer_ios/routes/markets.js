@@ -1,7 +1,7 @@
 const saveMktRouter   = require('express').Router();
 const saveMrkt        = require('../models/markets');
 
-saveMktRouter.get('/:farmerId', saveMrkt.getMarketByFarmerId, (req,res)=>{
+saveMktRouter.get('/:marketId', saveMrkt.getMarketByMarketId, (req,res)=>{
   res.json(res.rows)
 })
 

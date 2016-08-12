@@ -26,7 +26,8 @@ module.exports={
       id_token: token,
       username: res.user.email,
       farmer_id: res.user.farmer_id,
-      farmer_name: res.user.name
+      farmer_name: res.user.name,
+      market_id: res.user.market_id
     })
   },
 

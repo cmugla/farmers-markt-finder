@@ -132,9 +132,9 @@ class App extends Component {
       loading: true
     })
 
-    let farmer_id = this.state.farmerIdLoggedIn
+    let market_id = this.state.marketIdLoggedIn
 
-    ajax.getMrktById(farmer_id)
+    ajax.getMrktById(market_id)
       .then((data)=>{
         console.log("From get Market by Id: ", data)
         this.setState({
@@ -145,7 +145,7 @@ class App extends Component {
       })
   }
 
-  loginFarmer(farmer_id, farmer_name){
+  loginFarmer(farmer_id, farmer_name, market_id){
     this.setState({
       showFarmer: true,
       showLogin: false,
@@ -153,6 +153,7 @@ class App extends Component {
       onHome: false,
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
+      marketIdLoggedIn: market_id,
       isFarmerHere: true
     })
   }
