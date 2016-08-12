@@ -53,7 +53,7 @@ class App extends Component {
       showFarmer: false,
       farmerIdLoggedIn: '',
       isFarmerHere: false,
-      selectedTab: 'feed',
+      selectedTab: 'search',
       loading: true,
       onHome: true
     };
@@ -82,20 +82,6 @@ class App extends Component {
           })
     //   }
     // );
-
-    if(this.state.isFarmerHere){
-      let farmer_id = this.state.farmerIdLoggedIn
-
-      ajax.getMrktById(farmer_id)
-        .then((data)=>{
-          console.log("From get Market by Id: ", data)
-          this.setState({
-            markets: data,
-            location_name: data.city,
-            loading: false
-          })
-        })
-    }
   }
 
   toggleShowLogin(){
@@ -152,7 +138,7 @@ class App extends Component {
       .then((data)=>{
         console.log("From get Market by Id: ", data)
         this.setState({
-          markets: data,
+          farmersMarkets: data,
           location_name: data.city,
           loading: false
         })
@@ -209,11 +195,11 @@ class App extends Component {
             unselectedTintColor="#333"
             tintColor="crimson">
             <TabBarIOS.Item
-              selected={this.state.selectedTab === 'feed'}
+              selected={this.state.selectedTab === 'search'}
               systemIcon="favorites"
               onPress={() => {
                 this.setState({
-                  selectedTab: 'feed'
+                  selectedTab: 'search'
                 });
               }}>
               {this.state.loading?
@@ -271,6 +257,7 @@ class App extends Component {
               selected={this.state.selectedTab === 'feed'}
               systemIcon="favorites"
               onPress={() => {
+                this.getMarketById();
                 this.setState({
                   selectedTab: 'feed'
                 });
@@ -278,7 +265,7 @@ class App extends Component {
               {this.state.loading?
                 <Spinner color="blue"/>
                 : <FarmerFeed
-                    marketData={this.state.markets}
+                    marketData={this.state.farmersMarkets}
                     location={this.state.location_name}
                     isFarmerHere={this.state.isFarmerHere}
                     farmerId={this.state.farmerIdLoggedIn} />

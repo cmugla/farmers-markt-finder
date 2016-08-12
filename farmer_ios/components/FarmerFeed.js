@@ -27,23 +27,29 @@ export default class FarmerFeed extends Component {
       <Container>
         <Content>
           <Header>
-            <Title>{market[0].market_name}</Title>
+            {market ?
+              <Title>{market.market_name}</Title>
+              : <Title>No Markets Saved Yet</Title>
+            }
           </Header>
-          <Card style={styles.margin}>
-            <CardItem header>
-              <Text>
-                {market[0].market_name}
-              </Text>
-            </CardItem>
-            <CardItem>
-              <Text>{market[0].address_line_1}</Text>
-              <Text>{market[0].city}, {market[0].state}</Text>
-            </CardItem>
-            <CardItem style={styles.footer}>
-              <Text style={styles.right}>{market[0].operation_hours}</Text>
-              <Text style={styles.right}>{market[0].operation_season}</Text>
-            </CardItem>
-          </Card>
+          {market ?
+            <Card style={styles.margin}>
+              <CardItem header>
+                <Text>
+                  {market.market_name}
+                </Text>
+              </CardItem>
+              <CardItem>
+                <Text>{market.address_line_1}</Text>
+                <Text>{market.city}, {market.state}</Text>
+              </CardItem>
+              <CardItem style={styles.footer}>
+                <Text style={styles.right}>{market.operation_hours}</Text>
+                <Text style={styles.right}>{market.operation_season}</Text>
+              </CardItem>
+            </Card>
+            : <Title style={styles.bold}>Use the Search feature to find a market you have a booth at</Title>
+          }
         </Content>
       </Container>
     )
@@ -60,5 +66,9 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     backgroundColor: 'white'
+  },
+  bold: {
+    textAlign: 'center',
+    fontSize: 28
   }
 })

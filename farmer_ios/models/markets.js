@@ -2,10 +2,10 @@ const _db     = require('./connection');
 
 module.exports = {
 
-  getMarketByMarketId(req,res,next){
+  getMarketByFarmerId(req,res,next){
     console.log('===== get saved_market =====', req.params);
     _db.one(`
-      SELECT * FROM save_markets WHERE farmer_id = $/farmer_id/`, req.params)
+      SELECT * FROM save_markets WHERE farmer_id = $/farmerId/`, req.params)
       .then( saved_market=>{
         console.log('Added saved_market successful!');
         res.rows = saved_market;
