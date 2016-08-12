@@ -65,8 +65,8 @@ module.exports = {
   addFarmerPost(req,res,next){
     console.log('===== add farmer_post =====', req.body);
     _db.one(`
-      INSERT INTO farmer_posts (farmer_id, market_name, content)
-      VALUES ($/farmer_id/, $/market_name/, $/content/)
+      INSERT INTO farmer_posts (farmer_id, farmer_name, market_name, content)
+      VALUES ($/farmer_id/, $/farmer_name/, $/market_name/, $/content/)
       RETURNING *;`, req.body)
       .then( farmer_post=>{
         console.log('Added farmer_post successful!');
