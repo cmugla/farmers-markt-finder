@@ -34,4 +34,16 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
+  addMarket(market_info){
+    return fetch(`http://localhost:3000/saveMkts`, {
+      method: 'post',
+      header: {
+        "Content-type" : "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(market_info)
+    })
+    .then(r=>r.json())
+    .then(r=>r)
+  }
+
 }

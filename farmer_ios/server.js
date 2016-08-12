@@ -11,6 +11,7 @@ const mktsRouter      = require('./routes/mkts')
 const userApiRouter   = require('./routes/userApi')
 const userRouter      = require('./routes/users')
 const postRouter      = require('./routes/posts')
+const saveMktRouter   = require('./routes/markets')
 
 const app             = express()
 const PORT            = process.env.PORT || 3000
@@ -32,6 +33,7 @@ app.use('/mkts',          mktsRouter)
 app.use('/userapi',       userApiRouter)
 app.use('/userapi/users', userRouter)
 app.use('/userapi/posts', postRouter)
+app.use('/saveMkts',      saveMktRouter)
 
 app.get('/', (req, res)=>{
   res.send('home')
