@@ -15,7 +15,7 @@ module.exports = {
 
   /* GET user */
   getUserByUsername(req, res, next) {
-    /* trim and lowercase the username before we try to match it */
+    console.log('===== get Farmer =====', req.body)
     _db.one(`
       SELECT *
       FROM farmers
@@ -34,14 +34,14 @@ module.exports = {
       })
       /* NOTE: NO USERS or all ERRORS*/
       .catch( error=>{
-        console.error('Error at getting user ', error);
+        console.error('Error getting user ', error);
         res.error = error
         next()
       })
   },
 
   createUser(req, res, next) {
-    console.log(req.body)
+    console.log('===== create Farmer =====', req.body)
     createSecure(req.body.password)
       .then( hash=>{
         _db.one(`
@@ -60,6 +60,37 @@ module.exports = {
         })
 
       });
+  },
+
+  addFarmerPost(req,res,next){
+    console.log('===== add farmer_post =====', req.body);
+    _db.one(`
+      INSERT INTO farmer_posts (farmer_id, market_id, content)
+      VALUES ($/farmer_id/, $/market_name/, $/content/)
+      RETURNING *;`, req.body)
+      .then( farmer_post=>{
+        console.log('Added farmer_post successful!');
+        res.rows = farmer_post;
+        next();
+      })
+      .catch( error=>{
+        console.error('Error in adding farmer_post:', error);
+      });
+  },
+
+  getPosts(req,res,next){
+    console.log('===== get all posts =====', req.body);
+    _db.one(`
+      SELECT * FROM farmer_posts WHERE farmer_id = $/farmer_id/
+      `, req.params)
+      .then( farmer_posts=>{
+        console.log('Got farmer_posts successfully');
+        res.rows = farmer_posts;
+        next()
+      })
+      .catch( error=>{
+        console.error('Error in getting posts ', error)
+      })
   }
 
 }
