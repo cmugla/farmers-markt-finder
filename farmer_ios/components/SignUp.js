@@ -29,18 +29,8 @@ export default class SignUp extends Component {
     this.state = {
       email: '',
       password: '',
-      name: '',
-      market_name: ''
+      name: ''
     }
-  }
-
-  handleSignUpPress(){
-    let email       = this.state.inputs.email;
-    let password    = this.state.inputs.password;
-    let name        = this.state.inputs.name;
-    let market_name = this.state.inputs.market_name;
-
-    this.props.signUp(email, password, name, market_name)
   }
 
   async _onValueChange(item, selectedValue) {
@@ -64,8 +54,7 @@ export default class SignUp extends Component {
         body: JSON.stringify({
           username: value.email,
           password: value.password,
-          name: value.name,
-          market_name: value.market_name
+          name: value.name
         })
       })
       .then((response) => response.json())
@@ -128,21 +117,6 @@ export default class SignUp extends Component {
                     name: text
                   })
                 }} />
-            </InputGroup>
-          </ListItem>
-
-          <ListItem>
-            <InputGroup >
-              <Input
-                stackedLabel
-                label="MARKET NAME"
-                placeholder="Name of Farmer's Market"
-                value={this.state.market_name}
-                onChangeText={(text)=>{
-                  this.setState({
-                    market_name: text
-                  })
-                }}/>
             </InputGroup>
           </ListItem>
         </List>

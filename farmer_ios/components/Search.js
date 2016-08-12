@@ -20,7 +20,10 @@ import {
 
 import OpenUrlButton from './OpenUrlButton'
 
-export default class Markets extends Component {
+import AjaxAdapter from '../helpers/ajaxAdapter.js'
+const ajax = new AjaxAdapter(fetch);
+
+export default class Search extends Component {
 
   constructor(props) {
     super(props);
@@ -35,7 +38,28 @@ export default class Markets extends Component {
     this.props.getMarkets(zip)
   }
 
+  saveMarket(market_name, address_line_1, city, state, operation_hours, operation_season) {
+    let data = {
+      market_name: market_name,
+      address_line_1: address_line_1,
+      city: city,
+      state: state,
+      operation_hours: operation_hours,
+      operation_season: operation_season,
+      farmer_id: this.props.farmerId
+    }
+    ajax.addMarket(data)
+      .then(data=>{
+        console.log("Saved Market: ", data)
+        ajax.updateFarmer(data)
+          .then(data=>{
+            console.log("Updated Farmer: ", data)
+          })
+      })
+  }
+
   render(){
+    let here = this
     console.log("FROM MARKETS COMPONENET: ", this.props.location)
     return (
       <Container>
@@ -79,6 +103,14 @@ export default class Markets extends Component {
                 {market.market_link ?
                   <CardItem>
                     <OpenUrlButton url={market.market_link.url} />
+                  </CardItem>
+                  : null
+                }
+                {here.props.isFarmerHere ?
+                  <CardItem>
+                    <Button block danger onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
+                      Register Me to this Market
+                    </Button>
                   </CardItem>
                   : null
                 }

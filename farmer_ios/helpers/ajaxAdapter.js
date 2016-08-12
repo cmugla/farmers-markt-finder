@@ -10,6 +10,18 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
+  getMrktById(market_id){
+    return fetch(`http://localhost:3000/saveMkts/${market_id}`)
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
+  getMIdByFId(farmer_id){
+    return fetch(`http://localhost:3000/saveMkts/farmer/${farmer_id}`)
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
   getMrktsLonLat(long, lat) {
     return fetch(`http://localhost:3000/mkts?longitude=${long}&latitude=${lat}`)
       .then(r=>r.json())
@@ -20,6 +32,42 @@ export default class AjaxAdapter{
     return fetch(`http://localhost:3000/mkts/location?longitude=${long}&latitude=${lat}`)
       .then(r=>r.json())
       .then(r=>r)
+  }
+
+  addPost(postContent) {
+    return fetch(`http://localhost:3000/userapi/posts`, {
+        method:'post',
+        headers: {
+          "Content-type" : "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify(postContent)
+      })
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
+  addMarket(market_info){
+    return fetch(`http://localhost:3000/saveMkts`, {
+      method: 'post',
+      headers: {
+        "Content-type" : "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(market_info)
+    })
+    .then(r=>r.json())
+    .then(r=>r)
+  }
+
+  updateFarmer(data){
+    return fetch(`http://localhost:3000/userapi/users`, {
+      method: 'put',
+      headers: {
+        "Content-type" : "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(r=>r.json())
+    .then(r=>r)
   }
 
 }

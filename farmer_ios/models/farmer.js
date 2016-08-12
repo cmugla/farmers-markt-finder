@@ -15,7 +15,7 @@ module.exports = {
 
   /* GET user */
   getUserByUsername(req, res, next) {
-    /* trim and lowercase the username before we try to match it */
+    console.log('===== get Farmer =====', req.body)
     _db.one(`
       SELECT *
       FROM farmers
@@ -34,20 +34,20 @@ module.exports = {
       })
       /* NOTE: NO USERS or all ERRORS*/
       .catch( error=>{
-        console.error('Error at getting user ', error);
+        console.error('Error getting user ', error);
         res.error = error
         next()
       })
   },
 
   createUser(req, res, next) {
-    console.log(req.body)
+    console.log('===== create Farmer =====', req.body)
     createSecure(req.body.password)
       .then( hash=>{
         _db.one(`
-          INSERT INTO farmers (name, email, market_name, password_digest)
-          VALUES ($1, $2, $3, $4)
-          returning *;`,[req.body.name, req.body.username, req.body.market_name, hash]
+          INSERT INTO farmers (name, email, password_digest)
+          VALUES ($1, $2, $3)
+          returning *;`,[req.body.name, req.body.username, hash]
         )
         .then( newUser=> {
           console.log(newUser)
@@ -60,6 +60,55 @@ module.exports = {
         })
 
       });
+  },
+
+  addFarmerPost(req,res,next){
+    console.log('===== add farmer_post =====', req.body);
+    _db.one(`
+      INSERT INTO farmer_posts (farmer_id, market_id, content)
+      VALUES ($/farmer_id/, $/market_id/, $/content/)
+      RETURNING *;`, req.body)
+      .then( farmer_post=>{
+        console.log('Added farmer_post successful!');
+        res.rows = farmer_post;
+        next();
+      })
+      .catch( error=>{
+        console.error('Error in adding farmer_post:', error);
+      });
+  },
+
+  getPosts(req,res,next){
+    console.log('===== get all posts =====', req.body);
+    _db.one(`
+      SELECT * FROM farmer_posts WHERE farmer_id = $/farmer_id/
+      `, req.params)
+      .then( farmer_posts=>{
+        console.log('Got farmer_posts successfully');
+        res.rows = farmer_posts;
+        next()
+      })
+      .catch( error=>{
+        console.error('Error in getting posts ', error)
+      })
+  },
+
+  updateFarmer(req,res,next){
+    console.log('===== update farmer info =====', req.body);
+    _db.one(`
+      UPDATE farmers
+      SET market_id = $/market_id/
+      WHERE farmer_id = $/farmer_id/
+      RETURNING *;
+      `, req.body)
+      .then( farmer_info=>{
+        console.log('Updated farmer_info successfully');
+        res.rows = farmer_info;
+        next()
+      })
+      .catch( error=>{
+        console.error('Error in updating farmer ', error)
+      })
   }
 
 }
