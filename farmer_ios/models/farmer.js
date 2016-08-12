@@ -66,7 +66,7 @@ module.exports = {
     console.log('===== add farmer_post =====', req.body);
     _db.one(`
       INSERT INTO farmer_posts (farmer_id, market_id, content)
-      VALUES ($/farmer_id/, $/market_name/, $/content/)
+      VALUES ($/farmer_id/, $/market_id/, $/content/)
       RETURNING *;`, req.body)
       .then( farmer_post=>{
         console.log('Added farmer_post successful!');
@@ -91,7 +91,7 @@ module.exports = {
       .catch( error=>{
         console.error('Error in getting posts ', error)
       })
-  }
+  },
 
 }
 

@@ -24,7 +24,10 @@ module.exports={
       success: true,
       message: 'Enjoy your token!',
       id_token: token,
-      username: res.user.email
+      username: res.user.email,
+      farmer_id: res.user.farmer_id,
+      farmer_name: res.user.name,
+      market_name: res.user.market_name
     })
   },
 

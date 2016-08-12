@@ -22,4 +22,16 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
+  addPost(postContent) {
+    return fetch(`http://localhost:3000/userapi/posts`, {
+        method:'post',
+        headers: {
+          "Content-type" : "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify(postContent)
+      })
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
 }

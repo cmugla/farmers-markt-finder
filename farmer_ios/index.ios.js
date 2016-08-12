@@ -24,6 +24,7 @@ import Feed     from './components/Feed'
 import Homepage from './components/Homepage'
 import Login    from './components/Login'
 import SignUp   from './components/SignUp'
+import Post     from './components/Post'
 
 import Icon     from 'react-native-vector-icons/Ionicons'
 
@@ -49,6 +50,7 @@ class App extends Component {
       showGuest: false,
       showSignUp: false,
       showFarmer: false,
+      farmerIdLoggedIn: '',
       selectedTab: 'feed',
       loading: true,
       onHome: true
@@ -123,17 +125,23 @@ class App extends Component {
       })
   }
 
-  loginFarmer(){
+  loginFarmer(farmer_id, market_name, farmer_name){
     this.setState({
       showFarmer: true,
       showLogin: false,
       showSignUp: false,
-      onHome: false
+      onHome: false,
+      farmerIdLoggedIn: farmer_id,
+      farmerNameLoggedIn: farmer_name,
+      marketNameLoggedIn: market_name
     })
   }
 
-  signUpFarmer(email, password, name, market_name){
-
+  handlePost(postContent){
+    ajax.addPost(postContent)
+      .then((data)=>{
+        console.log(data)
+      })
   }
 
   render() {
@@ -233,31 +241,22 @@ class App extends Component {
             unselectedTintColor="#333"
             tintColor="crimson">
             <TabBarIOS.Item
-              selected={this.state.selectedTab === 'feed'}
-              systemIcon="favorites"
-              onPress={() => {
-                this.setState({
-                  selectedTab: 'feed'
-                });
-              }}>
-              {this.state.loading?
-                <Spinner color="blue"/>
-                : <Feed
-                    marketData={this.state.markets}
-                    location={this.state.location_name}
-                    getMarkets={this.getMarkets.bind(this)} />
-              }
-            </TabBarIOS.Item>
-            <TabBarIOS.Item
-              icon="create"
+              title='Post'
+              systemIcon='history'
+              selected={this.state.selectedTab === 'post'}
               onPress={() => {
                 this.setState({
                   selectedTab: 'post'
                 });
               }}>
-              <Post />
+              <Post
+                farmerName={this.state.farmerNameLoggedIn}
+                farmerId={this.state.farmerIdLoggedIn}
+                marketName={this.state.marketNameLoggedIn}
+                post={this.handlePost.bind(this)} />
             </TabBarIOS.Item>
             <TabBarIOS.Item
+              selected={this.state.selectedTab === 'feed'}
               systemIcon="favorites"
               onPress={() => {
                 this.setState({

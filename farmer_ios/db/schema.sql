@@ -3,7 +3,7 @@ CREATE TABLE farmers (
   farmer_id serial unique primary key,
   name VARCHAR(50) unique,
   email VARCHAR(255) unique not null,
-  market_name VARCHAR(255) unique not null,
+  market_name VARCHAR(255),
   password_digest TEXT not null,
   farmer_created timestamp not null default now()
 );
