@@ -21,10 +21,9 @@ import {
 import OpenUrlButton from './OpenUrlButton'
 
 import AjaxAdapter from '../helpers/ajaxAdapter.js'
-
 const ajax = new AjaxAdapter(fetch);
 
-export default class Markets extends Component {
+export default class Search extends Component {
 
   constructor(props) {
     super(props);

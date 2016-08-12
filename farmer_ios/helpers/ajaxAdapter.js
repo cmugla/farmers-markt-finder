@@ -10,6 +10,12 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
+  getMrktById(id){
+    return fetch(`http://localhost:3000/saveMkts/${id}`)
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
   getMrktsLonLat(long, lat) {
     return fetch(`http://localhost:3000/mkts?longitude=${long}&latitude=${lat}`)
       .then(r=>r.json())

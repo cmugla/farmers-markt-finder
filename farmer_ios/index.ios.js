@@ -20,11 +20,12 @@ import {
   Spinner
 } from 'native-base';
 
-import Feed     from './components/Feed'
-import Homepage from './components/Homepage'
-import Login    from './components/Login'
-import SignUp   from './components/SignUp'
-import Post     from './components/Post'
+import Search     from './components/Search'
+import Homepage   from './components/Homepage'
+import Login      from './components/Login'
+import SignUp     from './components/SignUp'
+import Post       from './components/Post'
+import FarmerFeed from './components/FarmerFeed'
 
 import Icon     from 'react-native-vector-icons/Ionicons'
 
@@ -81,6 +82,20 @@ class App extends Component {
           })
     //   }
     // );
+
+    if(this.state.isFarmerHere){
+      let farmer_id = this.state.farmerIdLoggedIn
+
+      ajax.getMrktById(farmer_id)
+        .then((data)=>{
+          console.log("From get Market by Id: ", data)
+          this.setState({
+            markets: data,
+            location_name: data.city,
+            loading: false
+          })
+        })
+    }
   }
 
   toggleShowLogin(){
@@ -123,6 +138,24 @@ class App extends Component {
           loading:false
         })
         console.log(this.state.zip, this.state.location_name)
+      })
+  }
+
+  getMarketById(){
+    this.setState({
+      loading: true
+    })
+
+    let farmer_id = this.state.farmerIdLoggedIn
+
+    ajax.getMrktById(farmer_id)
+      .then((data)=>{
+        console.log("From get Market by Id: ", data)
+        this.setState({
+          markets: data,
+          location_name: data.city,
+          loading: false
+        })
       })
   }
 
@@ -185,7 +218,7 @@ class App extends Component {
               }}>
               {this.state.loading?
                 <Spinner color="blue"/>
-                : <Feed
+                : <Search
                     marketData={this.state.markets}
                     location={this.state.location_name}
                     getMarkets={this.getMarkets.bind(this)} />
@@ -235,6 +268,23 @@ class App extends Component {
             unselectedTintColor="#333"
             tintColor="crimson">
             <TabBarIOS.Item
+              selected={this.state.selectedTab === 'feed'}
+              systemIcon="favorites"
+              onPress={() => {
+                this.setState({
+                  selectedTab: 'feed'
+                });
+              }}>
+              {this.state.loading?
+                <Spinner color="blue"/>
+                : <FarmerFeed
+                    marketData={this.state.markets}
+                    location={this.state.location_name}
+                    isFarmerHere={this.state.isFarmerHere}
+                    farmerId={this.state.farmerIdLoggedIn} />
+              }
+            </TabBarIOS.Item>
+            <TabBarIOS.Item
               title='Post'
               systemIcon='history'
               selected={this.state.selectedTab === 'post'}
@@ -259,7 +309,7 @@ class App extends Component {
               }}>
               {this.state.loading?
                 <Spinner color="blue"/>
-                : <Feed
+                : <Search
                     marketData={this.state.markets}
                     location={this.state.location_name}
                     getMarkets={this.getMarkets.bind(this)}
