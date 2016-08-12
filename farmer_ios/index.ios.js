@@ -51,6 +51,7 @@ class App extends Component {
       showSignUp: false,
       showFarmer: false,
       farmerIdLoggedIn: '',
+      isFarmerHere: false,
       selectedTab: 'feed',
       loading: true,
       onHome: true
@@ -133,7 +134,8 @@ class App extends Component {
       onHome: false,
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
-      marketNameLoggedIn: market_name
+      marketNameLoggedIn: market_name,
+      isFarmerHere: true
     })
   }
 
@@ -256,11 +258,11 @@ class App extends Component {
                 post={this.handlePost.bind(this)} />
             </TabBarIOS.Item>
             <TabBarIOS.Item
-              selected={this.state.selectedTab === 'feed'}
+              selected={this.state.selectedTab === 'search'}
               systemIcon="search"
               onPress={() => {
                 this.setState({
-                  selectedTab: 'feed'
+                  selectedTab: 'search'
                 });
               }}>
               {this.state.loading?
@@ -268,7 +270,8 @@ class App extends Component {
                 : <Feed
                     marketData={this.state.markets}
                     location={this.state.location_name}
-                    getMarkets={this.getMarkets.bind(this)} />
+                    getMarkets={this.getMarkets.bind(this)}
+                    isFarmerHere={this.state.isFarmerHere} />
               }
             </TabBarIOS.Item>
           </TabBarIOS>

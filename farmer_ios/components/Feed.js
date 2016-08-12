@@ -36,6 +36,7 @@ export default class Markets extends Component {
   }
 
   render(){
+    let here = this
     console.log("FROM MARKETS COMPONENET: ", this.props.location)
     return (
       <Container>
@@ -79,6 +80,14 @@ export default class Markets extends Component {
                 {market.market_link ?
                   <CardItem>
                     <OpenUrlButton url={market.market_link.url} />
+                  </CardItem>
+                  : null
+                }
+                {here.props.isFarmerHere ?
+                  <CardItem>
+                    <Button block danger>
+                      Register Me to this Market
+                    </Button>
                   </CardItem>
                   : null
                 }
