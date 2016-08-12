@@ -257,7 +257,7 @@ class App extends Component {
             </TabBarIOS.Item>
             <TabBarIOS.Item
               selected={this.state.selectedTab === 'feed'}
-              systemIcon="favorites"
+              systemIcon="search"
               onPress={() => {
                 this.setState({
                   selectedTab: 'feed'
