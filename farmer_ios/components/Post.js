@@ -24,7 +24,7 @@ export default class Post extends Component {
 
     this.state={
       postContent: '',
-      marketName: this.props.marketName,
+      marketId: this.props.marketId,
       farmerName: this.props.farmerName,
       farmerId: this.props.farmerId
     }
@@ -33,7 +33,7 @@ export default class Post extends Component {
   handlePost(){
     let postContent = {
       content: this.state.postContent,
-      market_id: this.state.marketName,
+      market_id: this.state.marketId,
       farmer_id: this.state.farmerId
     }
     this.props.post(postContent)
