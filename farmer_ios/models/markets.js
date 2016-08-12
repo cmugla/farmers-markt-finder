@@ -2,12 +2,26 @@ const _db     = require('./connection');
 
 module.exports = {
 
+  getMIdFromFId(req,res,next){
+    console.log('===== get market_id =====', req.params);
+    _db.one(`
+      SELECT market_id FROM farmers WHERE farmer_id = $/farmerId/`, req.params)
+      .then( market_id=>{
+        console.log('Got market_id successful: ', market_id);
+        res.rows = market_id;
+        next();
+      })
+      .catch( error=>{
+        console.error('Error in adding saved_market:', error);
+      });
+  },
+
   getMarketByMarketId(req,res,next){
     console.log('===== get saved_market =====', req.params);
     _db.one(`
       SELECT * FROM save_markets WHERE market_id = $/marketId/`, req.params)
       .then( saved_market=>{
-        console.log('Added saved_market successful!');
+        console.log('Got saved_market successful!');
         res.rows = saved_market;
         next();
       })

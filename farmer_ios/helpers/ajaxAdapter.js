@@ -10,8 +10,14 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
-  getMrktById(farmer_id){
-    return fetch(`http://localhost:3000/saveMkts/${farmer_id}`)
+  getMrktById(market_id){
+    return fetch(`http://localhost:3000/saveMkts/${market_id}`)
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
+  getMIdByFId(farmer_id){
+    return fetch(`http://localhost:3000/saveMkts/farmer/${farmer_id}`)
       .then(r=>r.json())
       .then(r=>r)
   }

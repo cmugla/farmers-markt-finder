@@ -132,16 +132,20 @@ class App extends Component {
       loading: true
     })
 
-    let market_id = this.state.marketIdLoggedIn
+    let farmer_id = this.state.farmerIdLoggedIn
 
-    ajax.getMrktById(market_id)
-      .then((data)=>{
-        console.log("From get Market by Id: ", data)
-        this.setState({
-          farmersMarkets: data,
-          location_name: data.city,
-          loading: false
-        })
+    ajax.getMIdByFId(farmer_id)
+      .then(r=>{
+        console.log("from get markets, market_id: ", r)
+        ajax.getMrktById(r.market_id)
+          .then((data)=>{
+            console.log("From get Market by Id: ", data)
+            this.setState({
+              farmersMarkets: data,
+              location_name: data.city,
+              loading: false
+            })
+          })
       })
   }
 
@@ -269,7 +273,8 @@ class App extends Component {
                     marketData={this.state.farmersMarkets}
                     location={this.state.location_name}
                     isFarmerHere={this.state.isFarmerHere}
-                    farmerId={this.state.farmerIdLoggedIn} />
+                    farmerId={this.state.farmerIdLoggedIn}
+                    farmerName={this.state.farmerNameLoggedIn} />
               }
             </TabBarIOS.Item>
             <TabBarIOS.Item
@@ -284,7 +289,7 @@ class App extends Component {
               <Post
                 farmerName={this.state.farmerNameLoggedIn}
                 farmerId={this.state.farmerIdLoggedIn}
-                marketName={this.state.marketNameLoggedIn}
+                marketId={this.state.marketIdLoggedIn}
                 post={this.handlePost.bind(this)} />
             </TabBarIOS.Item>
             <TabBarIOS.Item
