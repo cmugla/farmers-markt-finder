@@ -16,7 +16,7 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
-  getMIdByFId(farmer_id){
+  getMDataByFId(farmer_id){
     return fetch(`http://localhost:3000/saveMkts/farmer/${farmer_id}`)
       .then(r=>r.json())
       .then(r=>r)
@@ -42,6 +42,12 @@ export default class AjaxAdapter{
         },
         body: JSON.stringify(postContent)
       })
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
+  getPostsByMName(market_name) {
+    return fetch(`http://localhost:3000/userapi/posts?market_name=${market_name}`)
       .then(r=>r.json())
       .then(r=>r)
   }

@@ -2,13 +2,13 @@ const _db     = require('./connection');
 
 module.exports = {
 
-  getMIdFromFId(req,res,next){
-    console.log('===== get market_id =====', req.params);
+  getMDataFromFId(req,res,next){
+    console.log('===== get market_data =====', req.params);
     _db.one(`
-      SELECT market_id FROM farmers WHERE farmer_id = $/farmerId/`, req.params)
-      .then( market_id=>{
-        console.log('Got market_id successful: ', market_id);
-        res.rows = market_id;
+      SELECT * FROM farmers WHERE farmer_id = $/farmerId/`, req.params)
+      .then( market_data=>{
+        console.log('Got market_data successful: ', market_data);
+        res.rows = market_data;
         next();
       })
       .catch( error=>{

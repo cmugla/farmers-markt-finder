@@ -134,17 +134,28 @@ class App extends Component {
 
     let farmer_id = this.state.farmerIdLoggedIn
 
-    ajax.getMIdByFId(farmer_id)
+    ajax.getMDataByFId(farmer_id)
       .then(r=>{
-        console.log("from get markets, market_id: ", r)
         ajax.getMrktById(r.market_id)
           .then((data)=>{
             console.log("From get Market by Id: ", data)
             this.setState({
               farmersMarkets: data,
               location_name: data.city,
-              loading: false
+              loading: false,
+              market_name: data.market_name
             })
+            ajax.getPostsByMName(data.market_name)
+              .then(data=>{
+                console.log("From get Posts: ", data)
+                this.setState({
+                  currentPosts: data,
+                  loading:false
+                })
+              })
+              .catch(err=>{
+                if(err) console.log("From get posts, error: ",err)
+              })
           })
       })
   }
@@ -157,7 +168,6 @@ class App extends Component {
       onHome: false,
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
-      marketIdLoggedIn: market_id,
       isFarmerHere: true
     })
   }
@@ -175,6 +185,8 @@ class App extends Component {
     console.log("logged In state: ", this.state.showLogin)
     console.log("show farmer state: ", this.state.showFarmer)
     console.log("show sign up state: ", this.state.showSignUp)
+
+    console.log("From index, market_name: ", this.state.market_name)
 
     if(this.state.onHome) {
       return(
@@ -274,7 +286,8 @@ class App extends Component {
                     location={this.state.location_name}
                     isFarmerHere={this.state.isFarmerHere}
                     farmerId={this.state.farmerIdLoggedIn}
-                    farmerName={this.state.farmerNameLoggedIn} />
+                    farmerName={this.state.farmerNameLoggedIn}
+                    currentPosts={this.state.currentPosts} />
               }
             </TabBarIOS.Item>
             <TabBarIOS.Item
@@ -282,6 +295,7 @@ class App extends Component {
               systemIcon='history'
               selected={this.state.selectedTab === 'post'}
               onPress={() => {
+                this.getMarketById();
                 this.setState({
                   selectedTab: 'post'
                 });
@@ -289,7 +303,7 @@ class App extends Component {
               <Post
                 farmerName={this.state.farmerNameLoggedIn}
                 farmerId={this.state.farmerIdLoggedIn}
-                marketId={this.state.marketIdLoggedIn}
+                marketName={this.state.market_name}
                 post={this.handlePost.bind(this)} />
             </TabBarIOS.Item>
             <TabBarIOS.Item

@@ -65,8 +65,8 @@ module.exports = {
   addFarmerPost(req,res,next){
     console.log('===== add farmer_post =====', req.body);
     _db.one(`
-      INSERT INTO farmer_posts (farmer_id, market_id, content)
-      VALUES ($/farmer_id/, $/market_id/, $/content/)
+      INSERT INTO farmer_posts (farmer_id, market_name, content)
+      VALUES ($/farmer_id/, $/market_name/, $/content/)
       RETURNING *;`, req.body)
       .then( farmer_post=>{
         console.log('Added farmer_post successful!');
@@ -79,10 +79,10 @@ module.exports = {
   },
 
   getPosts(req,res,next){
-    console.log('===== get all posts =====', req.body);
-    _db.one(`
-      SELECT * FROM farmer_posts WHERE farmer_id = $/farmer_id/
-      `, req.params)
+    console.log('===== get posts from market_name =====', req.query);
+    _db.many(`
+      SELECT * FROM farmer_posts WHERE market_name = $/market_name/
+      `, req.query)
       .then( farmer_posts=>{
         console.log('Got farmer_posts successfully');
         res.rows = farmer_posts;

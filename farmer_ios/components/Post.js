@@ -23,23 +23,22 @@ export default class Post extends Component {
     super(props);
 
     this.state={
-      postContent: '',
-      marketId: this.props.marketId,
-      farmerName: this.props.farmerName,
-      farmerId: this.props.farmerId
+      postContent: ''
     }
   }
 
   handlePost(){
+    console.log("From Post component: ", this.props.marketName)
     let postContent = {
       content: this.state.postContent,
-      market_id: this.state.marketId,
-      farmer_id: this.state.farmerId
+      market_name: this.props.marketName,
+      farmer_id: this.props.farmerId
     }
     this.props.post(postContent)
   }
 
   render(){
+    console.log("From Post component: ", this.props.marketName)
     return(
       <Content>
         <List>

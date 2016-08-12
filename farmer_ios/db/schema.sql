@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS farmer_posts;
 CREATE TABLE farmer_posts (
   post_id serial unique primary key,
   farmer_id integer not null,
-  market_id integer not null,
+  market_name TEXT not null,
   content TEXT not null,
   post_created timestamp not null default now()
 );

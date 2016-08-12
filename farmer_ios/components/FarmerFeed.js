@@ -21,7 +21,14 @@ import {
 export default class FarmerFeed extends Component {
 
   render(){
-    let market = this.props.marketData
+    let market  = this.props.marketData
+    let posts   = this.props.currentPosts
+
+    console.log("Current Posts: ", posts)
+
+    if(!posts) {
+      posts = null
+    }
 
     return (
       <Container>
@@ -47,8 +54,16 @@ export default class FarmerFeed extends Component {
                 <Text style={styles.right}>{market.operation_hours}</Text>
                 <Text style={styles.right}>{market.operation_season}</Text>
               </CardItem>
+              {posts.map((post, id)=>{
+                return (
+                <CardItem key={id}>
+                  <Text>{post.farmer_name}</Text>
+                  <Text>{post.content}</Text>
+                </CardItem>
+                )
+              })}
             </Card>
-            : <Title style={styles.bold}>Use the Search feature to find a market you have a booth at</Title>
+            : <Text style={styles.bold}>Use the Search feature to find a market you have a booth at</Text>
           }
         </Content>
       </Container>

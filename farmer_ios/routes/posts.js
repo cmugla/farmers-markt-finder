@@ -7,7 +7,7 @@ postRouter.post('/', farmerDB.addFarmerPost, (req,res)=>{
   res.json(res.rows)
 })
 
-postRouter.get('/:farmer_id', farmerDB.getPosts, (req,res)=>{
+postRouter.get('/', farmerDB.getPosts, (req,res)=>{
   res.json(res.rows)
 })
 
