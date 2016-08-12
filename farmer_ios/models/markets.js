@@ -19,8 +19,8 @@ module.exports = {
   addMarket(req,res,next){
     console.log('===== add saved_market =====', req.body);
     _db.one(`
-      INSERT INTO save_markets (farmer_id, market_name, address_line_1, state, operation_hours, operation_season, market_link_url)
-      VALUES ($/farmer_id/, $/market_name/, $/address_line_1/, $/state/, $/operation_hours/, $/operation_season/, $/market_link_url/)
+      INSERT INTO save_markets (farmer_id, market_name, address_line_1, city, state, operation_hours, operation_season)
+      VALUES ($/farmer_id/, $/market_name/, $/address_line_1/, $/city/, $/state/, $/operation_hours/, $/operation_season/)
       RETURNING *;`, req.body)
       .then( saved_market=>{
         console.log('Added saved_market successful!');

@@ -57,7 +57,7 @@ export default class Login extends Component {
       .then((responseData) => {
         console.log("FROM LOGIN: ", responseData)
         this._onValueChange(STORAGE_KEY, responseData.id_token)
-        here.props.toggleLogin(responseData.farmer_id, responseData.market_name, responseData.farmer_name)
+        here.props.toggleLogin(responseData.farmer_id, responseData.farmer_name)
       })
       .catch((err)=>{
         if(err) console.log(err)

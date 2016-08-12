@@ -126,7 +126,7 @@ class App extends Component {
       })
   }
 
-  loginFarmer(farmer_id, market_name, farmer_name){
+  loginFarmer(farmer_id, farmer_name){
     this.setState({
       showFarmer: true,
       showLogin: false,
@@ -134,7 +134,6 @@ class App extends Component {
       onHome: false,
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
-      marketNameLoggedIn: market_name,
       isFarmerHere: true
     })
   }
@@ -148,17 +147,10 @@ class App extends Component {
 
   render() {
     let here = this;
-    let loggedIn;
 
     console.log("logged In state: ", this.state.showLogin)
     console.log("show farmer state: ", this.state.showFarmer)
     console.log("show sign up state: ", this.state.showSignUp)
-
-    if(this.state.showLogin) {
-      loggedIn = 'Hi!'
-    } else if(!this.state.showLogin) {
-      loggedIn = 'Login'
-    }
 
     if(this.state.onHome) {
       return(
@@ -172,7 +164,7 @@ class App extends Component {
         <View>
           <Header>
             <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-              {loggedIn}
+              Login
             </Button>
             <Title>NYC Markets</Title>
             <Button transparent onPress={this.toggleShowSignUP.bind(this)}>
@@ -207,7 +199,7 @@ class App extends Component {
         <View>
           <Header>
             <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-              {loggedIn}
+              Login
             </Button>
             <Title>NYC Markets</Title>
             <Button transparent>
@@ -222,14 +214,14 @@ class App extends Component {
         <View>
           <Header>
             <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-              {loggedIn}
+              Login
             </Button>
             <Title>NYC Markets</Title>
             <Button transparent>
               Create
             </Button>
           </Header>
-          <SignUp signUp={this.signUpFarmer.bind(this)} />
+          <SignUp />
         </View>
       )
     } else if(this.state.showFarmer) {
@@ -271,7 +263,8 @@ class App extends Component {
                     marketData={this.state.markets}
                     location={this.state.location_name}
                     getMarkets={this.getMarkets.bind(this)}
-                    isFarmerHere={this.state.isFarmerHere} />
+                    isFarmerHere={this.state.isFarmerHere}
+                    farmerId={this.state.farmerIdLoggedIn} />
               }
             </TabBarIOS.Item>
           </TabBarIOS>

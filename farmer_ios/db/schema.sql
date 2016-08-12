@@ -25,8 +25,8 @@ CREATE TABLE save_markets (
   farmer_id integer not null,
   market_name VARCHAR(255) not null,
   address_line_1 TEXT not null,
+  city VARCHAR(255) not null,
   state VARCHAR(255) not null,
   operation_hours TEXT not null,
-  operation_season TEXT not null,
-  market_link_url TEXT not null
+  operation_season TEXT not null
 );

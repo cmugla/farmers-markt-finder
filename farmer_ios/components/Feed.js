@@ -20,6 +20,10 @@ import {
 
 import OpenUrlButton from './OpenUrlButton'
 
+import AjaxAdapter from '../helpers/ajaxAdapter.js'
+
+const ajax = new AjaxAdapter(fetch);
+
 export default class Markets extends Component {
 
   constructor(props) {
@@ -33,6 +37,22 @@ export default class Markets extends Component {
   handleSubmit() {
     let zip = this.state.zipSearched
     this.props.getMarkets(zip)
+  }
+
+  saveMarket(market_name, address_line_1, city, state, operation_hours, operation_season) {
+    let data = {
+      market_name: market_name,
+      address_line_1: address_line_1,
+      city: city,
+      state: state,
+      operation_hours: operation_hours,
+      operation_season: operation_season,
+      farmer_id: this.props.farmerId
+    }
+    ajax.addMarket(data)
+      .then(data=>{
+        console.log("Saved Market: ", data)
+      })
   }
 
   render(){
@@ -85,7 +105,7 @@ export default class Markets extends Component {
                 }
                 {here.props.isFarmerHere ?
                   <CardItem>
-                    <Button block danger>
+                    <Button block danger onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
                       Register Me to this Market
                     </Button>
                   </CardItem>
