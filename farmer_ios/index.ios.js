@@ -89,7 +89,8 @@ class App extends Component {
       onHome: false,
       showLogin: !this.state.showLogin,
       showSignUp: false,
-      showFarmer: false
+      showFarmer: false,
+      showGuest: false
     })
   }
 
@@ -98,7 +99,8 @@ class App extends Component {
       onHome: false,
       showSignUp: !this.state.showSignUp,
       showLogin: false,
-      showFarmer: false
+      showFarmer: false,
+      showGuest:false
     })
   }
 
@@ -106,7 +108,9 @@ class App extends Component {
     this.setState({
       onHome: false,
       showGuest: !this.state.showGuest,
-      showFarmer: false
+      showFarmer: false,
+      showLogin: false,
+      showSignUp: false
     })
   }
 
@@ -165,6 +169,7 @@ class App extends Component {
       showFarmer: true,
       showLogin: false,
       showSignUp: false,
+      showGuest:false,
       onHome: false,
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
@@ -195,133 +200,129 @@ class App extends Component {
           signUp={this.toggleShowSignUP.bind(this)}
           skip={this.toggleShowGuest.bind(this)} />
       )
-    } else if(!this.state.onHome && this.state.showGuest) {
-      return (
-        <View>
-          <Header>
-            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-              Login
-            </Button>
-            <Title>NYC Markets</Title>
-            <Button transparent onPress={this.toggleShowSignUP.bind(this)}>
-              Create
-            </Button>
-          </Header>
-          <TabBarIOS
-            selectedTab={this.state.selectedTab}
-            unselectedTintColor="#333"
-            tintColor="crimson">
-            <TabBarIOS.Item
-              selected={this.state.selectedTab === 'search'}
-              systemIcon="favorites"
-              onPress={() => {
-                this.setState({
-                  selectedTab: 'search'
-                });
-              }}>
-              {this.state.loading?
-                <Spinner color="blue"/>
-                : <Search
-                    marketData={this.state.markets}
-                    location={this.state.location_name}
-                    getMarkets={this.getMarkets.bind(this)} />
-              }
-            </TabBarIOS.Item>
-          </TabBarIOS>
-        </View>
-      );
     } else if(!this.state.onHome) {
       return (
         <View>
-          <Header>
-            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-              Login
-            </Button>
-            <Title>NYC Markets</Title>
-            <Button transparent onPress={this.toggleShowSignUP.bind(this)}>
-              Create
-            </Button>
-          </Header>
+          {this.state.showFarmer ?
+            <Header>
+              <Title>{this.state.farmerNameLoggedIn}</Title>
+            </Header>
+            : <Header>
+                <Button transparent onPress={this.toggleShowLogin.bind(this)}>
+                  Login
+                </Button>
+                <Title>NYC Markets</Title>
+                <Button transparent onPress={this.toggleShowSignUP.bind(this)}>
+                  Create
+                </Button>
+              </Header>
+          }
+          {this.state.showGuest ?
+            <TabBarIOS
+              selectedTab={this.state.selectedTab}
+              unselectedTintColor="#333"
+              tintColor="crimson">
+              <TabBarIOS.Item
+                selected={this.state.selectedTab === 'search'}
+                systemIcon="favorites"
+                onPress={() => {
+                  this.setState({
+                    selectedTab: 'search'
+                  });
+                }}>
+                {this.state.loading?
+                  <Spinner color="blue"/>
+                  : <Search
+                      marketData={this.state.markets}
+                      location={this.state.location_name}
+                      getMarkets={this.getMarkets.bind(this)} />
+                }
+              </TabBarIOS.Item>
+            </TabBarIOS>
+            : this.state.showFarmer ?
+              <TabBarIOS
+                selectedTab={this.state.selectedTab}
+                unselectedTintColor="#333"
+                tintColor="crimson">
+                <TabBarIOS.Item
+                  selected={this.state.selectedTab === 'feed'}
+                  systemIcon="favorites"
+                  onPress={() => {
+                    this.getMarketById();
+                    this.setState({
+                      selectedTab: 'feed'
+                    });
+                  }}>
+                  {this.state.loading?
+                    <Spinner color="blue"/>
+                    : <FarmerFeed
+                        marketData={this.state.farmersMarkets}
+                        location={this.state.location_name}
+                        isFarmerHere={this.state.isFarmerHere}
+                        farmerId={this.state.farmerIdLoggedIn}
+                        farmerName={this.state.farmerNameLoggedIn}
+                        currentPosts={this.state.currentPosts} />
+                  }
+                </TabBarIOS.Item>
+                <TabBarIOS.Item
+                  title='Post'
+                  systemIcon='history'
+                  selected={this.state.selectedTab === 'post'}
+                  onPress={() => {
+                    this.getMarketById();
+                    this.setState({
+                      selectedTab: 'post'
+                    });
+                  }}>
+                  <Post
+                    farmerName={this.state.farmerNameLoggedIn}
+                    farmerId={this.state.farmerIdLoggedIn}
+                    marketName={this.state.market_name}
+                    post={this.handlePost.bind(this)} />
+                </TabBarIOS.Item>
+                <TabBarIOS.Item
+                  selected={this.state.selectedTab === 'search'}
+                  systemIcon="search"
+                  onPress={() => {
+                    this.setState({
+                      selectedTab: 'search'
+                    });
+                  }}>
+                  {this.state.loading?
+                    <Spinner color="blue"/>
+                    : <Search
+                        marketData={this.state.markets}
+                        location={this.state.location_name}
+                        getMarkets={this.getMarkets.bind(this)}
+                        isFarmerHere={this.state.isFarmerHere}
+                        farmerId={this.state.farmerIdLoggedIn} />
+                  }
+                </TabBarIOS.Item>
+              </TabBarIOS>
+              : null
+          }
           {this.state.showLogin ?
             <Content>
               <Header><Title>LOGIN</Title></Header>
               <Login toggleLogin={this.loginFarmer.bind(this)} />
+              {!this.state.showGuest ?
+                <Button bordered danger style={styles.margin} onPress={this.toggleShowGuest.bind(this)}>
+                  Skip
+                </Button>
+                : null }
             </Content>
-            : this.state.showSignUp ?
-                <Content>
-                  <Header><Title>SIGN UP AS A FARMER</Title></Header>
-                  <SignUp toggleLogin={this.loginFarmer.bind(this)} />
-                </Content>
-                : null
-
+          : this.state.showSignUp ?
+            <Content>
+              <Header><Title>SIGN UP AS A FARMER</Title></Header>
+              <SignUp toggleLogin={this.loginFarmer.bind(this)} />
+              {!this.state.showGuest ?
+                <Button bordered danger style={styles.margin} onPress={this.toggleShowGuest.bind(this)}>
+                  Skip
+                </Button>
+                : null }
+            </Content>
+            : null
           }
-        </View>
-      )
-    } else if(this.state.showFarmer) {
-      return (
-        <View>
-          <Header>
-            <Title>{this.state.farmerNameLoggedIn}</Title>
-          </Header>
-          <TabBarIOS
-            selectedTab={this.state.selectedTab}
-            unselectedTintColor="#333"
-            tintColor="crimson">
-            <TabBarIOS.Item
-              selected={this.state.selectedTab === 'feed'}
-              systemIcon="favorites"
-              onPress={() => {
-                this.getMarketById();
-                this.setState({
-                  selectedTab: 'feed'
-                });
-              }}>
-              {this.state.loading?
-                <Spinner color="blue"/>
-                : <FarmerFeed
-                    marketData={this.state.farmersMarkets}
-                    location={this.state.location_name}
-                    isFarmerHere={this.state.isFarmerHere}
-                    farmerId={this.state.farmerIdLoggedIn}
-                    farmerName={this.state.farmerNameLoggedIn}
-                    currentPosts={this.state.currentPosts} />
-              }
-            </TabBarIOS.Item>
-            <TabBarIOS.Item
-              title='Post'
-              systemIcon='history'
-              selected={this.state.selectedTab === 'post'}
-              onPress={() => {
-                this.getMarketById();
-                this.setState({
-                  selectedTab: 'post'
-                });
-              }}>
-              <Post
-                farmerName={this.state.farmerNameLoggedIn}
-                farmerId={this.state.farmerIdLoggedIn}
-                marketName={this.state.market_name}
-                post={this.handlePost.bind(this)} />
-            </TabBarIOS.Item>
-            <TabBarIOS.Item
-              selected={this.state.selectedTab === 'search'}
-              systemIcon="search"
-              onPress={() => {
-                this.setState({
-                  selectedTab: 'search'
-                });
-              }}>
-              {this.state.loading?
-                <Spinner color="blue"/>
-                : <Search
-                    marketData={this.state.markets}
-                    location={this.state.location_name}
-                    getMarkets={this.getMarkets.bind(this)}
-                    isFarmerHere={this.state.isFarmerHere}
-                    farmerId={this.state.farmerIdLoggedIn} />
-              }
-            </TabBarIOS.Item>
-          </TabBarIOS>
         </View>
       )
     }
