@@ -230,7 +230,7 @@ class App extends Component {
           </TabBarIOS>
         </View>
       );
-    } else if(!this.state.onHome && this.state.showLogin) {
+    } else if(!this.state.onHome) {
       return (
         <View>
           <Header>
@@ -238,33 +238,30 @@ class App extends Component {
               Login
             </Button>
             <Title>NYC Markets</Title>
-            <Button transparent>
+            <Button transparent onPress={this.toggleShowSignUP.bind(this)}>
               Create
             </Button>
           </Header>
-          <Login toggleLogin={this.loginFarmer.bind(this)} />
-        </View>
-      )
-    } else if(!this.state.onHome && this.state.showSignUp) {
-      return (
-        <View>
-          <Header>
-            <Button transparent onPress={this.toggleShowLogin.bind(this)}>
-              Login
-            </Button>
-            <Title>NYC Markets</Title>
-            <Button transparent>
-              Create
-            </Button>
-          </Header>
-          <SignUp toggleLogin={this.loginFarmer.bind(this)} />
+          {this.state.showLogin ?
+            <Content>
+              <Header><Title>LOGIN</Title></Header>
+              <Login toggleLogin={this.loginFarmer.bind(this)} />
+            </Content>
+            : this.state.showSignUp ?
+                <Content>
+                  <Header><Title>SIGN UP AS A FARMER</Title></Header>
+                  <SignUp toggleLogin={this.loginFarmer.bind(this)} />
+                </Content>
+                : null
+
+          }
         </View>
       )
     } else if(this.state.showFarmer) {
       return (
         <View>
           <Header>
-            <Title>NYC Markets</Title>
+            <Title>{this.state.farmerNameLoggedIn}</Title>
           </Header>
           <TabBarIOS
             selectedTab={this.state.selectedTab}

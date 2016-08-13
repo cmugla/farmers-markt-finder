@@ -59,13 +59,18 @@ export default class Search extends Component {
   }
 
   render(){
-    let here = this
-    console.log("FROM MARKETS COMPONENET: ", this.props.location)
+    let isLoggedIn    = this.props.isFarmerHere;
+    let saveMarket    = this.saveMarket;
+    let marketData    = this.props.marketData;
+    let location      = this.props.location;
+    let handleSubmit  = this.handleSubmit;
+
+    console.log("FROM MARKETS COMPONENET: ", location)
     return (
       <Container>
         <Content>
           <Header>
-            <Title>Nearby Markets to {this.props.location}</Title>
+            <Title>Nearby Markets to {location}</Title>
           </Header>
           <Header searchBar rounded>
             <InputGroup>
@@ -80,11 +85,11 @@ export default class Search extends Component {
                 }}
               />
             </InputGroup>
-            <Button transparent onPress={this.handleSubmit.bind(this)}>
+            <Button transparent onPress={handleSubmit.bind(this)}>
               Search
             </Button>
           </Header>
-          {this.props.marketData.map((market, id)=>{
+          {marketData.map((market, id)=>{
             return (
               <Card key={id} style={styles.margin}>
                 <CardItem header>
@@ -106,9 +111,18 @@ export default class Search extends Component {
                   </CardItem>
                   : null
                 }
-                {here.props.isFarmerHere ?
+                {isLoggedIn ?
                   <CardItem>
-                    <Button block danger onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
+                    <Button
+                      block danger
+                      onPress={()=>{
+                        saveMarket(
+                          market.market_name,
+                          market.address_line_1,
+                          market.city, market.state,
+                          market.operation_hours,
+                          market.operation_season)}
+                      }>
                       Register Me to this Market
                     </Button>
                   </CardItem>
