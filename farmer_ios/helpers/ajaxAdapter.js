@@ -34,6 +34,30 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
+  signUpFarmer(farmer_info) {
+    return fetch(`http://localhost:3000/userapi/users`, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify(farmer_info)
+      })
+      .then((r) => r.json())
+  }
+
+  loginFarmer(login_info) {
+    return fetch("http://localhost:3000/userapi/authenticate", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(login_info)
+      })
+      .then((r) => r.json())
+  }
+
   addPost(postContent) {
     return fetch(`http://localhost:3000/userapi/posts`, {
         method:'post',

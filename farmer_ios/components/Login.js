@@ -19,6 +19,9 @@ import {
 
 var STORAGE_KEY = 'id_token';
 
+import AjaxAdapter from '../helpers/ajaxAdapter.js'
+const ajax = new AjaxAdapter(fetch);
+
 export default class Login extends Component {
 
   constructor(props){
@@ -41,28 +44,23 @@ export default class Login extends Component {
   _userLogin() {
     let here = this
     var value = this.state;
+
+    let login_info = {
+      username: value.email,
+      password: value.password,
+    }
+
     if (value) { // if validation fails, value will be null
-      fetch("http://localhost:3000/userapi/authenticate", {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: value.email,
-          password: value.password,
+      ajax.loginFarmer(login_info)
+        .then((r) => {
+          console.log("FROM LOGIN: ", r)
+          this._onValueChange(STORAGE_KEY, r.id_token)
+          here.props.toggleLogin(r.farmer_id, r.farmer_name, r.market_id)
         })
-      })
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("FROM LOGIN: ", responseData)
-        this._onValueChange(STORAGE_KEY, responseData.id_token)
-        here.props.toggleLogin(responseData.farmer_id, responseData.farmer_name, responseData.market_id)
-      })
-      .catch((err)=>{
-        if(err) console.log(err)
-      })
-      .done();
+        .catch((err)=>{
+          if(err) console.log(err)
+        })
+        .done();
     }
   }
 

@@ -19,7 +19,8 @@ import {
 
 var STORAGE_KEY = 'id_token';
 
-const options = {};
+import AjaxAdapter from '../helpers/ajaxAdapter.js'
+const ajax = new AjaxAdapter(fetch);
 
 export default class SignUp extends Component {
 
@@ -43,47 +44,35 @@ export default class SignUp extends Component {
 
   _userSignup() {
     console.log("INPUTS: ", this.state)
-    var value       = this.state
-    let toggleLogin = this.props.toggleLogin;
-    let loginFarmer = this._onValueChange;
+    var value           = this.state
+    let toggleLogin     = this.props.toggleLogin;
+    let _onValueChange  = this._onValueChange;
 
     if (value) { // if validation fails, value will be null
-      fetch("http://localhost:3000/userapi/users", {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        body: JSON.stringify({
-          username: value.email,
-          password: value.password,
-          name: value.name
-        })
-      })
-      .then((r) => r.json())
-      .then((responseData) => {
-          fetch("http://localhost:3000/userapi/authenticate", {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            username: value.email,
-            password: value.password,
+      let farmer_info = {
+        username: value.email,
+        password: value.password,
+        name: value.name
+      }
+
+      let login_info = {
+        username: value.email,
+        password: value.password,
+      }
+
+      ajax.signUpFarmer(farmer_info)
+        .then(() => {
+          ajax.loginFarmer(login_info)
+          .then((r) => {
+            console.log("FROM Login: ", r)
+            _onValueChange(STORAGE_KEY, r.id_token)
+            toggleLogin(r.farmer_id, r.farmer_name, r.market_id)
           })
         })
-        .then((r) => r.json())
-        .then((responseData) => {
-          console.log("FROM Login: ", responseData)
-          loginFarmer(STORAGE_KEY, responseData.id_token)
-          toggleLogin(responseData.farmer_id, responseData.farmer_name, responseData.market_id)
+        .catch((err)=>{
+          if(err) console.log(err)
         })
-      })
-      .catch((err)=>{
-        if(err) console.log(err)
-      })
-      .done();
+        .done();
     }
   }
 
