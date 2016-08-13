@@ -170,6 +170,12 @@ class App extends Component {
             })
         } else {
           console.log("market_id is undefined: ", r.market_id)
+          this.setState({
+            market_name: '',
+            market_id: null,
+            loading:false,
+            farmersMarkets: {}
+          })
         }
       })
       .catch(err=>{

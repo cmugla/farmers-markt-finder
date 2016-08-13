@@ -25,6 +25,7 @@ export default class FarmerFeed extends Component {
     let posts   = this.props.currentPosts
 
     console.log("Current Posts: ", posts)
+    console.log("Market Data: ", market)
 
     return (
       <Container>
@@ -53,12 +54,12 @@ export default class FarmerFeed extends Component {
               {posts.map((post, id)=>{
                 return (
                   <CardItem key={id}>
-                  {post.farmer_name ?
+                  {post ?
                     <Text>{post.farmer_name}</Text>
                     : null
                   }
                     <Text>{post.content}</Text>
-                  {post.post_created ?
+                  {post ?
                     <Text style={styles.finePrint}>{post.post_created}</Text>
                     : null
                   }

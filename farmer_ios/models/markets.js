@@ -21,7 +21,7 @@ module.exports = {
     _db.one(`
       SELECT * FROM save_markets WHERE market_id = $/marketId/`, req.params)
       .then( saved_market=>{
-        console.log('Got saved_market successful!');
+        console.log('Got saved_market successful!', saved_market);
         res.rows = saved_market;
         next();
       })
