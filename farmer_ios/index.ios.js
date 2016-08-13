@@ -26,6 +26,7 @@ import Login      from './components/Login'
 import SignUp     from './components/SignUp'
 import Post       from './components/Post'
 import FarmerFeed from './components/FarmerFeed'
+import Profile    from './components/Profile'
 
 import Icon     from 'react-native-vector-icons/Ionicons'
 
@@ -87,7 +88,7 @@ class App extends Component {
   toggleShowLogin(){
     this.setState({
       onHome: false,
-      showLogin: !this.state.showLogin,
+      showLogin: true,
       showSignUp: false,
       showFarmer: false,
       showGuest: false
@@ -97,7 +98,7 @@ class App extends Component {
   toggleShowSignUP(){
     this.setState({
       onHome: false,
-      showSignUp: !this.state.showSignUp,
+      showSignUp: true,
       showLogin: false,
       showFarmer: false,
       showGuest:false
@@ -107,7 +108,7 @@ class App extends Component {
   toggleShowGuest(){
     this.setState({
       onHome: false,
-      showGuest: !this.state.showGuest,
+      showGuest: true,
       showFarmer: false,
       showLogin: false,
       showSignUp: false
@@ -131,7 +132,7 @@ class App extends Component {
       })
   }
 
-  getMarketById(){
+  getSavedMktById(){
     this.setState({
       loading: true
     })
@@ -187,16 +188,13 @@ class App extends Component {
       })
   }
 
+  /*
+                     |
+  ,---.,---.,---.,---|,---.,---.
+  |    |---'|   ||   ||---'|
+  `    `---'`   '`---'`---'`
+  */
   render() {
-    let here = this;
-
-    console.log("logged In state: ", this.state.showLogin)
-    console.log("show farmer state: ", this.state.showFarmer)
-    console.log("show sign up state: ", this.state.showSignUp)
-
-    console.log("Farmer Id logged in: ", this.state.farmerIdLoggedIn)
-
-    console.log("From index, market_name: ", this.state.market_name)
 
     if(this.state.market_name) {
       this.setState({
@@ -228,6 +226,13 @@ class App extends Component {
                 </Button>
               </Header>
           }
+        {/*
+                            |
+        ,---..   .,---.,---.|---
+        |   ||   ||---'`---.|
+        `---|`---'`---'`---'`---'
+        `---'
+        */}
           {this.state.showGuest ?
             <TabBarIOS
               selectedTab={this.state.selectedTab}
@@ -250,6 +255,12 @@ class App extends Component {
                 }
               </TabBarIOS.Item>
             </TabBarIOS>
+        {/*
+        ,---.
+        |__. ,---.,---.,-.-.,---.,---.
+        |    ,---||    | | ||---'|
+        `    `---^`    ` ' '`---'`
+        */}
             : this.state.showFarmer ?
               <TabBarIOS
                 selectedTab={this.state.selectedTab}
@@ -259,7 +270,7 @@ class App extends Component {
                   selected={this.state.selectedTab === 'feed'}
                   systemIcon="favorites"
                   onPress={() => {
-                    this.getMarketById();
+                    this.getSavedMktById();
                     this.setState({
                       selectedTab: 'feed'
                     });
@@ -277,7 +288,7 @@ class App extends Component {
                   systemIcon='history'
                   selected={this.state.selectedTab === 'post'}
                   onPress={() => {
-                    this.getMarketById();
+                    this.getSavedMktById();
                     this.setState({
                       selectedTab: 'post'
                     });
@@ -304,9 +315,26 @@ class App extends Component {
                     farmerId={this.state.farmerIdLoggedIn}
                     market_name={this.state.market_name} />
                 </TabBarIOS.Item>
+                <TabBarIOS.Item
+                  selected={this.state.selectedTab === 'profile'}
+                  systemIcon="contact"
+                  onPress={() => {
+                    this.setState({
+                      selectedTab: 'profile'
+                    });
+                  }}>
+                  <Profile />
+                </TabBarIOS.Item>
               </TabBarIOS>
               : null
           }
+        {/*
+        |              o        /     o
+        |    ,---.,---..,---.  / ,---..,---.,---..   .,---.
+        |    |   ||   |||   | /  `---.||   ||   ||   ||   |
+        `---'`---'`---|``   '/   `---'``---|`   '`---'|---'
+                  `---'                `---'          |
+        */}
           {this.state.showLogin ?
             <Content>
               <Header><Title>LOGIN</Title></Header>

@@ -67,11 +67,16 @@ export default class Search extends Component {
       })
   }
 
+  /*
+                     |
+  ,---.,---.,---.,---|,---.,---.
+  |    |---'|   ||   ||---'|
+  `    `---'`   '`---'`---'`
+  */
   render(){
     console.log("farmer logged in: ", this.props.farmerId)
 
     let isLoggedIn    = this.props.isFarmerHere;
-    let saveMarket    = this.saveMarket;
     let marketData    = this.props.marketData;
     let savedMarket   = this.props.market_name;
     let location      = this.props.location;

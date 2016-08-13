@@ -38,6 +38,12 @@ export default class Post extends Component {
     this.props.post(postContent)
   }
 
+   /*
+                     |
+  ,---.,---.,---.,---|,---.,---.
+  |    |---'|   ||   ||---'|
+  `    `---'`   '`---'`---'`
+  */
   render(){
     console.log("From Post component: ", this.props.marketName)
     return(
