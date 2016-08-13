@@ -191,6 +191,8 @@ class App extends Component {
     console.log("show farmer state: ", this.state.showFarmer)
     console.log("show sign up state: ", this.state.showSignUp)
 
+    console.log("Farmer Id logged in: ", this.state.farmerIdLoggedIn)
+
     console.log("From index, market_name: ", this.state.market_name)
 
     if(this.state.onHome) {

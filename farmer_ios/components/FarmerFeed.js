@@ -56,6 +56,7 @@ export default class FarmerFeed extends Component {
                     <CardItem key={id}>
                       <Text>{post.farmer_name}</Text>
                       <Text>{post.content}</Text>
+                      <Text style={styles.finePrint}>{post.post_created}</Text>
                     </CardItem>
                   )
                 })
@@ -82,7 +83,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   bold: {
-    textAlign: 'center',
-    fontSize: 28
+    textAlign: 'center'
+  },
+  finePrint: {
+    fontSize: 10,
+    textAlign: 'right',
+    color: 'hotpink'
   }
 })

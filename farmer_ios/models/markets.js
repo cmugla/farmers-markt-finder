@@ -26,7 +26,7 @@ module.exports = {
         next();
       })
       .catch( error=>{
-        console.error('Error in adding saved_market:', error);
+        console.error('Error in getting saved_market:', error);
       });
   },
 

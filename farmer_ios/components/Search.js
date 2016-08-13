@@ -48,6 +48,9 @@ export default class Search extends Component {
       operation_season: operation_season,
       farmer_id: this.props.farmerId
     }
+
+    console.log(data)
+
     ajax.addMarket(data)
       .then(data=>{
         console.log("Saved Market: ", data)
@@ -55,10 +58,18 @@ export default class Search extends Component {
           .then(data=>{
             console.log("Updated Farmer: ", data)
           })
+          .catch(err=>{
+            if(err) console.log("Error updating farmer: ", err)
+          })
+      })
+      .catch(err=>{
+        if(err) console.log("Error at ajax call: ", err)
       })
   }
 
   render(){
+    console.log("farmer logged in: ", this.props.farmerId)
+
     let isLoggedIn    = this.props.isFarmerHere;
     let saveMarket    = this.saveMarket;
     let marketData    = this.props.marketData;
@@ -115,14 +126,7 @@ export default class Search extends Component {
                   <CardItem>
                     <Button
                       block danger
-                      onPress={()=>{
-                        saveMarket(
-                          market.market_name,
-                          market.address_line_1,
-                          market.city, market.state,
-                          market.operation_hours,
-                          market.operation_season)}
-                      }>
+                      onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
                       Register Me to this Market
                     </Button>
                   </CardItem>
