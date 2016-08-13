@@ -26,10 +26,6 @@ export default class FarmerFeed extends Component {
 
     console.log("Current Posts: ", posts)
 
-    if(!posts) {
-      posts = null
-    }
-
     return (
       <Container>
         <Content>
@@ -54,14 +50,17 @@ export default class FarmerFeed extends Component {
                 <Text style={styles.right}>{market.operation_hours}</Text>
                 <Text style={styles.right}>{market.operation_season}</Text>
               </CardItem>
-              {posts.map((post, id)=>{
-                return (
-                <CardItem key={id}>
-                  <Text>{post.farmer_name}</Text>
-                  <Text>{post.content}</Text>
-                </CardItem>
-                )
-              })}
+              {posts ?
+                posts.map((post, id)=>{
+                  return (
+                    <CardItem key={id}>
+                      <Text>{post.farmer_name}</Text>
+                      <Text>{post.content}</Text>
+                    </CardItem>
+                  )
+                })
+                : null
+              }
             </Card>
             : <Text style={styles.bold}>Use the Search feature to find a market you have a booth at</Text>
           }

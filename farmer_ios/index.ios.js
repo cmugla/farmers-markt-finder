@@ -253,16 +253,13 @@ class App extends Component {
                       selectedTab: 'feed'
                     });
                   }}>
-                  {this.state.loading?
-                    <Spinner color="blue"/>
-                    : <FarmerFeed
-                        marketData={this.state.farmersMarkets}
-                        location={this.state.location_name}
-                        isFarmerHere={this.state.isFarmerHere}
-                        farmerId={this.state.farmerIdLoggedIn}
-                        farmerName={this.state.farmerNameLoggedIn}
-                        currentPosts={this.state.currentPosts} />
-                  }
+                  <FarmerFeed
+                    marketData={this.state.farmersMarkets}
+                    location={this.state.location_name}
+                    isFarmerHere={this.state.isFarmerHere}
+                    farmerId={this.state.farmerIdLoggedIn}
+                    farmerName={this.state.farmerNameLoggedIn}
+                    currentPosts={this.state.currentPosts} />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                   title='Post'
@@ -288,15 +285,12 @@ class App extends Component {
                       selectedTab: 'search'
                     });
                   }}>
-                  {this.state.loading?
-                    <Spinner color="blue"/>
-                    : <Search
-                        marketData={this.state.markets}
-                        location={this.state.location_name}
-                        getMarkets={this.getMarkets.bind(this)}
-                        isFarmerHere={this.state.isFarmerHere}
-                        farmerId={this.state.farmerIdLoggedIn} />
-                  }
+                  <Search
+                    marketData={this.state.markets}
+                    location={this.state.location_name}
+                    getMarkets={this.getMarkets.bind(this)}
+                    isFarmerHere={this.state.isFarmerHere}
+                    farmerId={this.state.farmerIdLoggedIn} />
                 </TabBarIOS.Item>
               </TabBarIOS>
               : null
