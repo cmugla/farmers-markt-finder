@@ -30,7 +30,7 @@ export default class Post extends Component {
   handlePost(){
     console.log("From Post component: ", this.props.marketName)
     let postContent = {
-      farmer_name: this.props.farmerName
+      farmer_name: this.props.farmerName,
       content: this.state.postContent,
       market_name: this.props.marketName,
       farmer_id: this.props.farmerId

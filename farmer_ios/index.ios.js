@@ -257,7 +257,7 @@ class App extends Component {
               Create
             </Button>
           </Header>
-          <SignUp />
+          <SignUp toggleLogin={this.loginFarmer.bind(this)} />
         </View>
       )
     } else if(this.state.showFarmer) {

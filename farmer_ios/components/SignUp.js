@@ -43,7 +43,10 @@ export default class SignUp extends Component {
 
   _userSignup() {
     console.log("INPUTS: ", this.state)
-    var value = this.state
+    var value       = this.state
+    let toggleLogin = this.props.toggleLogin;
+    let loginFarmer = this._onValueChange;
+
     if (value) { // if validation fails, value will be null
       fetch("http://localhost:3000/userapi/users", {
         method: "POST",
@@ -57,13 +60,25 @@ export default class SignUp extends Component {
           name: value.name
         })
       })
-      .then((response) => response.json())
+      .then((r) => r.json())
       .then((responseData) => {
-        console.log("From signup: ",responseData)
-        // this._onValueChange(STORAGE_KEY, responseData.id_token),
-        AlertIOS.alert(
-          "Signup Success!"
-        )
+          fetch("http://localhost:3000/userapi/authenticate", {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: value.email,
+            password: value.password,
+          })
+        })
+        .then((r) => r.json())
+        .then((responseData) => {
+          console.log("FROM Login: ", responseData)
+          loginFarmer(STORAGE_KEY, responseData.id_token)
+          toggleLogin(responseData.farmer_id, responseData.farmer_name, responseData.market_id)
+        })
       })
       .catch((err)=>{
         if(err) console.log(err)
