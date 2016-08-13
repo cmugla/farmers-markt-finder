@@ -50,18 +50,21 @@ export default class FarmerFeed extends Component {
                 <Text style={styles.right}>{market.operation_hours}</Text>
                 <Text style={styles.right}>{market.operation_season}</Text>
               </CardItem>
-              {posts ?
-                posts.map((post, id)=>{
-                  return (
-                    <CardItem key={id}>
-                      <Text>{post.farmer_name}</Text>
-                      <Text>{post.content}</Text>
-                      <Text style={styles.finePrint}>{post.post_created}</Text>
-                    </CardItem>
-                  )
-                })
-                : null
-              }
+              {posts.map((post, id)=>{
+                return (
+                  <CardItem key={id}>
+                  {post.farmer_name ?
+                    <Text>{post.farmer_name}</Text>
+                    : null
+                  }
+                    <Text>{post.content}</Text>
+                  {post.post_created ?
+                    <Text style={styles.finePrint}>{post.post_created}</Text>
+                    : null
+                  }
+                  </CardItem>
+                )
+              })}
             </Card>
             : <Text style={styles.bold}>Use the Search feature to find a market you have a booth at</Text>
           }

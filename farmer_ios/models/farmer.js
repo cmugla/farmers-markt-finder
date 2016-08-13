@@ -81,12 +81,31 @@ module.exports = {
   getPosts(req,res,next){
     console.log('===== get posts from market_name =====', req.query);
     _db.many(`
-      SELECT * FROM farmer_posts WHERE market_name = $/market_name/
+      SELECT EXISTS(
+      SELECT *
+      FROM farmer_posts
+      WHERE market_name = $/market_name/)
       `, req.query)
-      .then( farmer_posts=>{
-        console.log('Got farmer_posts successfully');
-        res.rows = farmer_posts;
-        next()
+      .then( r=>{
+        if(r[0].exists) {
+          _db.many(`
+            SELECT *
+            FROM farmer_posts
+            WHERE market_name = $/market_name/
+            `, req.query)
+            .then(farmer_posts=>{
+              console.log('Got farmer_posts successfully ', farmer_posts)
+              res.rows = farmer_posts
+              next();
+            })
+        } else {
+          res.rows = [{
+            farmer_name: '',
+            content: 'No Posts, yet.',
+            post_created: null
+          }]
+          next();
+        }
       })
       .catch( error=>{
         console.error('Error in getting posts ', error)

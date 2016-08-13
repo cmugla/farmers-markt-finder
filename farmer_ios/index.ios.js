@@ -56,7 +56,12 @@ class App extends Component {
       isFarmerHere: false,
       selectedTab: 'search',
       loading: true,
-      onHome: true
+      onHome: true,
+      currentPosts: [{
+        farmer_name: '',
+        content: 'No Posts, yet.',
+        post_created: null
+      }]
     };
   }
 
