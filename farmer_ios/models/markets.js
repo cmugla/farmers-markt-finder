@@ -44,6 +44,21 @@ module.exports = {
       .catch( error=>{
         console.error('Error in adding saved_market:', error);
       });
+  },
+
+  deleteMarket(req,res,next){
+    console.log('==== delete market from farmer ====', req.body);
+    _db.one(`
+      UPDATE farmers
+      SET market_id = NULL
+      WHERE farmer_id = $/farmer_id/
+      RETURNING *;
+      `, req.body)
+      .then( farmer_info=>{
+        console.log('Removed market_id: ', farmer_info);
+        res.rows = farmer_info;
+        next();
+      })
   }
 
 }

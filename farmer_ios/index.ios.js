@@ -141,30 +141,44 @@ class App extends Component {
 
     ajax.getMDataByFId(farmer_id)
       .then(r=>{
-        ajax.getMrktById(r.market_id)
-          .then((data)=>{
-            console.log("From get Market by Id: ", data)
-            this.setState({
-              farmersMarkets: data,
-              location_name: data.city,
-              loading: false,
-              market_name: data.market_name
-            })
-            ajax.getPostsByMName(data.market_name)
-              .then(data=>{
-                console.log("From get Posts: ", data)
-                this.setState({
-                  currentPosts: data,
-                  loading:false
+        if(r.market_id){
+          ajax.getMrktById(r.market_id)
+            .then((data)=>{
+              console.log("From get Market by Id: ", data)
+              this.setState({
+                farmersMarkets: data,
+                loading: false,
+                market_name: data.market_name,
+                market_id: r.market_id
+              })
+              ajax.getPostsByMName(data.market_name)
+                .then(data=>{
+                  console.log("From get Posts: ", data)
+                  this.setState({
+                    currentPosts: data,
+                    loading:false
+                  })
                 })
-              })
-              .catch(err=>{
-                if(err) console.log("From get posts, error: ",err)
-              })
-          })
+                .catch(err=>{
+                  if(err) console.log("From get posts, error: ",err)
+                })
+            })
+        } else {
+          console.log("market_id is undefined: ", r.market_id)
+        }
       })
       .catch(err=>{
         if(err) console.log("no markets: ", err)
+      })
+  }
+
+  removeFromFarmer(market_id, farmer_id) {
+    ajax.removeMarket(market_id, farmer_id)
+      .then(data=>{
+        this.setState({
+          market_name: '',
+          market_id: null
+        })
       })
   }
 
@@ -177,7 +191,8 @@ class App extends Component {
       onHome: false,
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
-      isFarmerHere: true
+      isFarmerHere: true,
+      selectedTab: 'feed'
     })
   }
 
@@ -195,19 +210,12 @@ class App extends Component {
   `    `---'`   '`---'`---'`
   */
   render() {
-
-    if(this.state.market_name) {
-      this.setState({
-        selectedTab: 'feed'
-      })
-    }
-
     if(this.state.onHome) {
       return(
         <Homepage
-          login={this.toggleShowLogin.bind(this)}
-          signUp={this.toggleShowSignUP.bind(this)}
-          skip={this.toggleShowGuest.bind(this)} />
+          login   ={this.toggleShowLogin.bind(this)}
+          signUp  ={this.toggleShowSignUP.bind(this)}
+          skip    ={this.toggleShowGuest.bind(this)} />
       )
     } else if(!this.state.onHome) {
       return (
@@ -249,18 +257,18 @@ class App extends Component {
                 {this.state.loading?
                   <Spinner color="blue"/>
                   : <Search
-                      marketData={this.state.markets}
-                      location={this.state.location_name}
-                      getMarkets={this.getMarkets.bind(this)} />
+                      marketData  ={this.state.markets}
+                      location    ={this.state.location_name}
+                      getMarkets  ={this.getMarkets.bind(this)} />
                 }
               </TabBarIOS.Item>
             </TabBarIOS>
-        {/*
+        /*
         ,---.
         |__. ,---.,---.,-.-.,---.,---.
         |    ,---||    | | ||---'|
         `    `---^`    ` ' '`---'`
-        */}
+        */
             : this.state.showFarmer ?
               <TabBarIOS
                 selectedTab={this.state.selectedTab}
@@ -276,12 +284,12 @@ class App extends Component {
                     });
                   }}>
                   <FarmerFeed
-                    marketData={this.state.farmersMarkets}
-                    location={this.state.location_name}
-                    isFarmerHere={this.state.isFarmerHere}
-                    farmerId={this.state.farmerIdLoggedIn}
-                    farmerName={this.state.farmerNameLoggedIn}
-                    currentPosts={this.state.currentPosts} />
+                    marketData    ={this.state.farmersMarkets}
+                    location      ={this.state.location_name}
+                    isFarmerHere  ={this.state.isFarmerHere}
+                    farmerId      ={this.state.farmerIdLoggedIn}
+                    farmerName    ={this.state.farmerNameLoggedIn}
+                    currentPosts  ={this.state.currentPosts} />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                   title='Post'
@@ -294,36 +302,44 @@ class App extends Component {
                     });
                   }}>
                   <Post
-                    farmerName={this.state.farmerNameLoggedIn}
-                    farmerId={this.state.farmerIdLoggedIn}
-                    marketName={this.state.market_name}
-                    post={this.handlePost.bind(this)} />
+                    farmerName  ={this.state.farmerNameLoggedIn}
+                    farmerId    ={this.state.farmerIdLoggedIn}
+                    marketName  ={this.state.market_name}
+                    post        ={this.handlePost.bind(this)} />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                   selected={this.state.selectedTab === 'search'}
                   systemIcon="search"
                   onPress={() => {
+                    this.getSavedMktById();
                     this.setState({
                       selectedTab: 'search'
                     });
                   }}>
                   <Search
-                    marketData={this.state.markets}
-                    location={this.state.location_name}
-                    getMarkets={this.getMarkets.bind(this)}
-                    isFarmerHere={this.state.isFarmerHere}
-                    farmerId={this.state.farmerIdLoggedIn}
-                    market_name={this.state.market_name} />
+                    marketData    ={this.state.markets}
+                    location      ={this.state.location_name}
+                    getMarkets    ={this.getMarkets.bind(this)}
+                    isFarmerHere  ={this.state.isFarmerHere}
+                    farmerId      ={this.state.farmerIdLoggedIn}
+                    market_name   ={this.state.market_name}
+                    getMarketById ={this.getSavedMktById.bind(this)} />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                   selected={this.state.selectedTab === 'profile'}
-                  systemIcon="contact"
+                  systemIcon="contacts"
                   onPress={() => {
+                    this.getSavedMktById();
                     this.setState({
                       selectedTab: 'profile'
                     });
                   }}>
-                  <Profile />
+                  <Profile
+                    market_name ={this.state.market_name}
+                    market_id   ={this.state.market_id}
+                    farmerName  ={this.state.farmerNameLoggedIn}
+                    farmerId    ={this.state.farmerIdLoggedIn}
+                    removeMarket={this.removeFromFarmer.bind(this)} />
                 </TabBarIOS.Item>
               </TabBarIOS>
               : null

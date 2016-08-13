@@ -22,6 +22,21 @@ export default class AjaxAdapter{
       .then(r=>r)
   }
 
+  removeMarket(market_id, farmer_id){
+    return fetch(`http://localhost:3000/saveMkts/farmer/removeMarket`, {
+      method: 'put',
+      headers: {
+        "Content-Type" : "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify({
+        'market_id': market_id,
+        'farmer_id': farmer_id
+      })
+    })
+    .then(r=>r.json())
+    .then(r=>r)
+  }
+
   getMrktsLonLat(long, lat) {
     return fetch(`http://localhost:3000/mkts?longitude=${long}&latitude=${lat}`)
       .then(r=>r.json())

@@ -49,11 +49,14 @@ export default class Search extends Component {
       farmer_id: this.props.farmerId
     }
 
+    let getMarketById = this.props.getMarketById
+
     console.log(data)
 
     ajax.addMarket(data)
       .then(data=>{
         console.log("Saved Market: ", data)
+        getMarketById(data.market_id)
         ajax.updateFarmer(data)
           .then(data=>{
             console.log("Updated Farmer: ", data)
@@ -74,15 +77,12 @@ export default class Search extends Component {
   `    `---'`   '`---'`---'`
   */
   render(){
-    console.log("farmer logged in: ", this.props.farmerId)
-
     let isLoggedIn    = this.props.isFarmerHere;
     let marketData    = this.props.marketData;
     let savedMarket   = this.props.market_name;
     let location      = this.props.location;
     let handleSubmit  = this.handleSubmit;
 
-    console.log("FROM MARKETS COMPONENET: ", location)
     return (
       <Container>
         <Content>
