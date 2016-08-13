@@ -162,6 +162,9 @@ class App extends Component {
               })
           })
       })
+      .catch(err=>{
+        if(err) console.log("no markets: ", err)
+      })
   }
 
   loginFarmer(farmer_id, farmer_name, market_id){
@@ -194,6 +197,12 @@ class App extends Component {
     console.log("Farmer Id logged in: ", this.state.farmerIdLoggedIn)
 
     console.log("From index, market_name: ", this.state.market_name)
+
+    if(this.state.market_name) {
+      this.setState({
+        selectedTab: 'feed'
+      })
+    }
 
     if(this.state.onHome) {
       return(
@@ -292,7 +301,8 @@ class App extends Component {
                     location={this.state.location_name}
                     getMarkets={this.getMarkets.bind(this)}
                     isFarmerHere={this.state.isFarmerHere}
-                    farmerId={this.state.farmerIdLoggedIn} />
+                    farmerId={this.state.farmerIdLoggedIn}
+                    market_name={this.state.market_name} />
                 </TabBarIOS.Item>
               </TabBarIOS>
               : null

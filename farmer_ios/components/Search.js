@@ -73,6 +73,7 @@ export default class Search extends Component {
     let isLoggedIn    = this.props.isFarmerHere;
     let saveMarket    = this.saveMarket;
     let marketData    = this.props.marketData;
+    let savedMarket   = this.props.market_name;
     let location      = this.props.location;
     let handleSubmit  = this.handleSubmit;
 
@@ -123,13 +124,19 @@ export default class Search extends Component {
                   : null
                 }
                 {isLoggedIn ?
-                  <CardItem>
-                    <Button
-                      block danger
-                      onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
-                      Register Me to this Market
-                    </Button>
-                  </CardItem>
+                  savedMarket===market.market_name ?
+                    <CardItem>
+                      <Text style={styles.center}>Registered!</Text>
+                    </CardItem>
+                    : savedMarket ?
+                      null
+                      : <CardItem>
+                          <Button
+                            block danger
+                            onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
+                            Register Me to this Market
+                          </Button>
+                        </CardItem>
                   : null
                 }
               </Card>
@@ -151,5 +158,8 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     backgroundColor: 'white'
+  },
+  center: {
+    textAlign: 'center'
   }
 })
