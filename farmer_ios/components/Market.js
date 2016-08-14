@@ -56,7 +56,7 @@ export default class Market extends Component {
               return (
                 <CardItem key={id}>
                   {post ?
-                    <Text>{post.farmer_name}</Text>
+                    <Text style={styles.bold}>{post.farmer_name}</Text>
                     : null
                   }
                     <Text>{post.content}</Text>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   bold: {
-    textAlign: 'center'
+    fontWeight: 'bold'
   },
   finePrint: {
     fontSize: 10,

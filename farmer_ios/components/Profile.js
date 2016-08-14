@@ -81,7 +81,7 @@ export default class Profile extends Component {
               return (
                 <CardItem key={id}>
                 {post ?
-                  <Text>{post.market_name}</Text>
+                  <Text style={styles.bold}>{post.market_name}</Text>
                   : null
                 }
                   <Text>{post.content}</Text>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   bold: {
-    textAlign: 'center'
+    fontWeight: 'bold'
   },
   finePrint: {
     fontSize: 10,
