@@ -27,6 +27,7 @@ import SignUp     from './components/SignUp'
 import Post       from './components/Post'
 import FarmerFeed from './components/FarmerFeed'
 import Profile    from './components/Profile'
+import Market     from './components/Market'
 
 import Icon     from 'react-native-vector-icons/Ionicons'
 
@@ -144,6 +145,15 @@ class App extends Component {
         })
         console.log(this.state.zip, this.state.location_name)
       })
+  }
+
+  showOneMarket(market){
+    this.setState({
+      oneMarketClicked: true,
+      marketClicked: market
+    })
+
+    this.getPostsByMName(market.market_name);
   }
 
   getSavedMktById(){
@@ -309,12 +319,16 @@ class App extends Component {
                 }}>
                 {this.state.loading?
                   <Spinner color="blue"/>
-                  : <Search
-                      marketData    ={this.state.markets}
-                      location      ={this.state.location_name}
-                      getMarkets    ={this.getMarkets.bind(this)}
-                      currentPosts  ={this.state.currentPosts}
-                      getPosts      ={this.getPostsByMName.bind(this)} />
+                  : this.state.oneMarketClicked ?
+                    <Market
+                      marketClicked   ={this.state.marketClicked}
+                      currentPosts    ={this.state.currentPosts}
+                      getPosts        ={this.getPostsByMName.bind(this)} />
+                    : <Search
+                        marketData    ={this.state.markets}
+                        location      ={this.state.location_name}
+                        getMarkets    ={this.getMarkets.bind(this)}
+                        showOneMarket ={this.showOneMarket.bind(this)} />
                 }
               </TabBarIOS.Item>
             </TabBarIOS>

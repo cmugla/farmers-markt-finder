@@ -125,21 +125,11 @@ export default class Search extends Component {
                 </CardItem>
                 <CardItem>
                   <Button success onPress={()=>{
-                    this.props.getPosts(market.market_name)
+                    this.props.showOneMarket(market)
                   }}>
                     Show Posts
                   </Button>
                 </CardItem>
-                {posts ?
-                  posts.map((post, id)=>{
-                    return (
-                      <CardItem key={id}>
-                        <Text>{post.content}</Text>
-                      </CardItem>
-                    )
-                  })
-                  : null
-                }
                 {market.market_link ?
                   <CardItem>
                     <OpenUrlButton url={market.market_link.url} />
