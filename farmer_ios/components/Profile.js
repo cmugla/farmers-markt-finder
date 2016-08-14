@@ -74,7 +74,7 @@ export default class Profile extends Component {
               : null
             }
             <CardItem header style={styles.titleText}>
-              <Text>Your Posts</Text>
+              <Text>Most Recent Posts, by date (Limit 3)</Text>
             </CardItem>
             {this.props.farmerPosts.map((post, id)=>{
               return (

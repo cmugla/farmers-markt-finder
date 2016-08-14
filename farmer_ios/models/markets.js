@@ -78,6 +78,8 @@ module.exports = {
             SELECT *
             FROM farmer_posts
             WHERE farmer_id = $/farmer_id/
+            ORDER BY post_created DESC NULLS LAST
+            LIMIT 3
             `, req.params)
             .then( farmer_posts=>{
               console.log('Got Farmer Posts Successful: ', farmer_posts)
