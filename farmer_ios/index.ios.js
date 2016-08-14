@@ -45,7 +45,7 @@ class App extends Component {
           longitude: '-73.98682'
         },
       },
-      zip: '',
+      zip: '10003',
       location_name: '',
       markets: [],
       showLogin: false,
@@ -122,7 +122,10 @@ class App extends Component {
       showGuest: true,
       showFarmer: false,
       showLogin: false,
-      showSignUp: false
+      showSignUp: false,
+      farmerIdLoggedIn: '',
+      farmerNameLoggedIn: '',
+      isFarmerHere: false,
     })
   }
 
@@ -131,7 +134,7 @@ class App extends Component {
       loading:true
     })
 
-    ajax.getMrktsZip(zip)
+    ajax.getMrktsByZip(zip)
       .then((data)=>{
         this.setState({
           markets: data,
@@ -232,6 +235,9 @@ class App extends Component {
     ajax.addPost(postContent)
       .then((data)=>{
         console.log(data)
+        this.setState({
+          selectedTab: 'feed'
+        })
       })
   }
 
@@ -282,6 +288,7 @@ class App extends Component {
                 selected={this.state.selectedTab === 'search'}
                 systemIcon="favorites"
                 onPress={() => {
+                  this.getMarkets('10003');
                   this.setState({
                     selectedTab: 'search'
                   });
@@ -376,7 +383,8 @@ class App extends Component {
                     farmerId    ={this.state.farmerIdLoggedIn}
                     removeMarket={this.removeFromFarmer.bind(this)}
                     showGuest   ={this.showGuest.bind(this)}
-                    farmerPosts ={this.state.farmerPosts} />
+                    farmerPosts ={this.state.farmerPosts}
+                    getMarkets  ={this.getMarkets.bind(this)} />
                 </TabBarIOS.Item>
               </TabBarIOS>
               : null

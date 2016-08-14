@@ -4,7 +4,7 @@ export default class AjaxAdapter{
     if(!fetch) throw "We need the Fetch library to make this work, bru.";
   }
 
-  getMrktsZip(zip){
+  getMrktsByZip(zip){
     return fetch(`http://localhost:3000/mkts?zip=${zip}`)
       .then(r => r.json())
       .then(r=>r)

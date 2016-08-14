@@ -28,6 +28,7 @@ export default class Profile extends Component {
     try {
       await AsyncStorage.removeItem(STORAGE_KEY);
       this.props.showGuest();
+      this.props.getMarkets('10003')
     } catch (error) {
       console.log('Profile AsyncStorage error: ' + error.message);
     }
