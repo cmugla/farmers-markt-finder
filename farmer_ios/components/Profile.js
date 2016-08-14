@@ -86,7 +86,7 @@ export default class Profile extends Component {
                 }
                   <Text>{post.content}</Text>
                 {post ?
-                  <Text>{post.post_created}</Text>
+                  <Text style={styles.finePrint}>{post.post_created}</Text>
                   : null
                 }
                 </CardItem>
@@ -105,5 +105,22 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-
+  margin: {
+    margin:10
+  },
+  right: {
+    textAlign: 'right'
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  bold: {
+    textAlign: 'center'
+  },
+  finePrint: {
+    fontSize: 10,
+    textAlign: 'right',
+    color: 'hotpink'
+  }
 })

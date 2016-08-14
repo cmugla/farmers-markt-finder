@@ -123,13 +123,16 @@ export default class Search extends Component {
                   <Text style={styles.right}>{market.operation_hours}</Text>
                   <Text style={styles.right}>{market.operation_season}</Text>
                 </CardItem>
-                <CardItem>
-                  <Button block success onPress={()=>{
-                    this.props.showOneMarket(market)
-                  }}>
-                    Show More
-                  </Button>
-                </CardItem>
+                {isLoggedIn ?
+                  null
+                  : <CardItem>
+                      <Button block success onPress={()=>{
+                        this.props.showOneMarket(market)
+                      }}>
+                        Show More
+                      </Button>
+                    </CardItem>
+                }
                 {market.market_link ?
                   <CardItem>
                     <OpenUrlButton url={market.market_link.url} />
