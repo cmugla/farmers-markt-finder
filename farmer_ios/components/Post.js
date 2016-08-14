@@ -36,6 +36,9 @@ export default class Post extends Component {
       farmer_id: this.props.farmerId
     }
     this.props.post(postContent)
+    this.setState({
+      postContent: ''
+    })
   }
 
    /*
