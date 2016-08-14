@@ -61,6 +61,12 @@ class App extends Component {
         farmer_name: '',
         content: 'No Posts, yet.',
         post_created: null
+      }],
+      farmerPosts: [{
+        farmer_name: '',
+        market_name: '',
+        content: 'No Posts, yet.',
+        post_created: null
       }]
     };
   }
@@ -179,7 +185,22 @@ class App extends Component {
         }
       })
       .catch(err=>{
-        if(err) console.log("no markets: ", err)
+        console.log("no markets: ", err)
+      })
+  }
+
+  getPostsByFId(){
+    let farmer_id = this.state.farmerIdLoggedIn
+
+    ajax.getPostsByFId(farmer_id)
+      .then(data=>{
+        console.log("Farmer Posts: ", data)
+        this.setState({
+          farmerPosts: data
+        })
+      })
+      .catch(err=>{
+        console.log("error getting posts from farmer: ", err)
       })
   }
 
@@ -203,7 +224,7 @@ class App extends Component {
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
       isFarmerHere: true,
-      selectedTab: 'profile'
+      selectedTab: 'post'
     })
   }
 
@@ -343,6 +364,7 @@ class App extends Component {
                   systemIcon="contacts"
                   onPress={() => {
                     this.getSavedMktById();
+                    this.getPostsByFId();
                     this.setState({
                       selectedTab: 'profile'
                     });
@@ -353,7 +375,8 @@ class App extends Component {
                     farmerName  ={this.state.farmerNameLoggedIn}
                     farmerId    ={this.state.farmerIdLoggedIn}
                     removeMarket={this.removeFromFarmer.bind(this)}
-                    showGuest   ={this.showGuest.bind(this)} />
+                    showGuest   ={this.showGuest.bind(this)}
+                    farmerPosts ={this.state.farmerPosts} />
                 </TabBarIOS.Item>
               </TabBarIOS>
               : null

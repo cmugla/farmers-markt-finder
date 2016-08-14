@@ -33,39 +33,62 @@ export default class Profile extends Component {
     }
   }
 
+  /*
+                     |
+  ,---.,---.,---.,---|,---.,---.
+  |    |---'|   ||   ||---'|
+  `    `---'`   '`---'`---'`
+  */
   render() {
     let savedMarket = this.props.market_name
     let farmerName  = this.props.farmerName
+    let posts       = this.props.farmerPosts
 
     console.log("Saved Market is: ", savedMarket);
     console.log("Farmer Name is: ", farmerName)
+    console.log("Trying to render posts: ", posts)
 
-    return(
+    return (
       <Container>
         <Content>
           <Header>
             <Title>Howdy!</Title>
           </Header>
-          {savedMarket ?
-            <Card>
-              <CardItem header>
-                <Text style={styles.titleText}>Your Market</Text>
-              </CardItem>
-              <CardItem>
+          <Card>
+            <CardItem header>
+              <Text style={styles.titleText}>Your Market</Text>
+            </CardItem>
+            <CardItem>
+              {savedMarket ?
                 <Text>{savedMarket}</Text>
-              </CardItem>
+                : <Text>No markets saved.</Text>
+              }
+            </CardItem>
+            {savedMarket ?
               <CardItem>
                 <Button danger onPress={this.removerFromFarmer.bind(this)}>
                   Remove
                   <Icon name="ios-trash" />
                 </Button>
               </CardItem>
-            </Card>
-            : <Text>No markets saved.</Text>
-          }
-          <Button danger block onPress={this._userLogout.bind(this)}>
-            Logout
-          </Button>
+              : null
+            }
+            <CardItem header style={styles.titleText}>
+              <Text>Your Posts</Text>
+            </CardItem>
+            {this.props.farmerPosts.map((post, id)=>{
+              return (
+                <CardItem key={id}>
+                  <Text>{post.content}</Text>
+                </CardItem>
+              )
+            })}
+            <CardItem>
+              <Button danger block onPress={this._userLogout.bind(this)}>
+                Logout
+              </Button>
+            </CardItem>
+          </Card>
         </Content>
       </Container>
     )

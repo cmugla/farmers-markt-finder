@@ -33,7 +33,7 @@ app.use('/mkts',          mktsRouter)
 app.use('/userapi',       userApiRouter)
 app.use('/userapi/users', userRouter)
 app.use('/userapi/posts', postRouter)
-app.use('/saveMkts',      saveMktRouter)
+app.use('/savemkts',      saveMktRouter)
 
 app.get('/', (req, res)=>{
   res.send('home')

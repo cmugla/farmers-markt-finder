@@ -11,19 +11,25 @@ export default class AjaxAdapter{
   }
 
   getMrktById(market_id){
-    return fetch(`http://localhost:3000/saveMkts/${market_id}`)
+    return fetch(`http://localhost:3000/savemkts/${market_id}`)
       .then(r=>r.json())
       .then(r=>r)
   }
 
   getMDataByFId(farmer_id){
-    return fetch(`http://localhost:3000/saveMkts/farmer/${farmer_id}`)
+    return fetch(`http://localhost:3000/savemkts/farmer/${farmer_id}`)
+      .then(r=>r.json())
+      .then(r=>r)
+  }
+
+  getPostsByFId(farmer_id){
+    return fetch(`http://localhost:3000/savemkts/farmer/posts/${farmer_id}`)
       .then(r=>r.json())
       .then(r=>r)
   }
 
   removeMarket(market_id, farmer_id){
-    return fetch(`http://localhost:3000/saveMkts/farmer/removeMarket`, {
+    return fetch(`http://localhost:3000/savemkts/farmer/removeMarket`, {
       method: 'put',
       headers: {
         "Content-Type" : "application/json; charset=UTF-8"
@@ -92,7 +98,7 @@ export default class AjaxAdapter{
   }
 
   addMarket(market_info){
-    return fetch(`http://localhost:3000/saveMkts`, {
+    return fetch(`http://localhost:3000/savemkts`, {
       method: 'post',
       headers: {
         "Content-type" : "application/json; charset=UTF-8"

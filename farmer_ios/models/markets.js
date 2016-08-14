@@ -59,6 +59,44 @@ module.exports = {
         res.rows = farmer_info;
         next();
       })
+  },
+
+  getPostsByFId(req,res,next){
+    console.log('==== checking farmer_id has posts ====', req.params);
+    _db.one(`
+      SELECT EXISTS(
+        SELECT *
+        FROM farmer_posts
+        WHERE farmer_id = $/farmer_id/
+      )
+      `, req.params)
+      .then( r=>{
+        console.log("do posts exist? ", r.exists)
+        if(r.exists){
+          console.log('==== Getting Posts from farmer_id ====', req.params)
+          _db.many(`
+            SELECT *
+            FROM farmer_posts
+            WHERE farmer_id = $/farmer_id/
+            `, req.params)
+            .then( farmer_posts=>{
+              console.log('Got Farmer Posts Successful: ', farmer_posts)
+              res.rows = farmer_posts;
+              next();
+            })
+        } else {
+          res.rows = [{
+            farmer_name: '',
+            market_name: '',
+            content: 'No Posts, yet.',
+            post_created: null
+          }]
+          next()
+        }
+      })
+      .catch(err=>{
+        console.log("error getting posts by farmer id ", err)
+      })
   }
 
 }
