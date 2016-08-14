@@ -25,6 +25,7 @@ export default class FarmerFeed extends Component {
     let posts   = this.props.currentPosts
 
     console.log("Current Posts: ", posts)
+    console.log("Current Posts, props: ", this.props.currentPosts)
     console.log("Market Data: ", market)
 
     return (

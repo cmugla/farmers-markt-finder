@@ -81,7 +81,7 @@ class App extends Component {
 
         ajax.getZip(here.state.position.coords.longitude, here.state.position.coords.latitude)
           .then((address)=>{
-            ajax.getMrktsZip(address.zip)
+            ajax.getMrktsByZip(address.zip)
               .then((data)=>{
                 this.setState({
                   markets: data,
@@ -183,7 +183,7 @@ class App extends Component {
             market_name: '',
             market_id: null,
             loading:false,
-            farmersMarkets: {}
+            farmersMarkets: null
           })
         }
       })
