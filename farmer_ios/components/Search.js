@@ -18,9 +18,10 @@ import {
   Button
 } from 'native-base';
 
-import OpenUrlButton from './OpenUrlButton'
+import OpenUrlButton  from './OpenUrlButton'
+import styles         from './styles'
 
-import AjaxAdapter from '../helpers/ajaxAdapter.js'
+import AjaxAdapter    from '../helpers/ajaxAdapter.js'
 const ajax = new AjaxAdapter(fetch);
 
 export default class Search extends Component {
@@ -166,19 +167,3 @@ export default class Search extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  margin: {
-    margin:10
-  },
-  right: {
-    textAlign: 'right'
-  },
-  footer: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  center: {
-    textAlign: 'center'
-  }
-})

@@ -18,6 +18,8 @@ import {
   Button
 } from 'native-base';
 
+import styles from './styles'
+
 export default class FarmerFeed extends Component {
 
   render(){
@@ -75,24 +77,3 @@ export default class FarmerFeed extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  margin: {
-    margin:10
-  },
-  right: {
-    textAlign: 'right'
-  },
-  footer: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  bold: {
-    fontWeight: 'bold'
-  },
-  finePrint: {
-    fontSize: 10,
-    textAlign: 'right',
-    color: 'hotpink'
-  }
-})

@@ -17,6 +17,8 @@ import {
   ListItem
 } from 'native-base';
 
+import styles from './styles'
+
 export default class Post extends Component {
 
   constructor(props){
@@ -90,9 +92,3 @@ export default class Post extends Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  margin: {
-    margin: 10
-  }
-})

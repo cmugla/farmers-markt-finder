@@ -16,6 +16,8 @@ import {
   Icon
 } from 'native-base';
 
+import styles from './styles'
+
 var STORAGE_KEY = 'id_token';
 
 export default class Profile extends Component {
@@ -103,24 +105,3 @@ export default class Profile extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  margin: {
-    margin:10
-  },
-  right: {
-    textAlign: 'right'
-  },
-  footer: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  bold: {
-    fontWeight: 'bold'
-  },
-  finePrint: {
-    fontSize: 10,
-    textAlign: 'right',
-    color: 'hotpink'
-  }
-})

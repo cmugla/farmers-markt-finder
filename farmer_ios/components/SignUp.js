@@ -16,10 +16,11 @@ import {
   ListItem
 } from 'native-base';
 
-var STORAGE_KEY = 'id_token';
+import styles       from './styles'
+import AjaxAdapter  from '../helpers/ajaxAdapter.js'
 
-import AjaxAdapter from '../helpers/ajaxAdapter.js'
-const ajax = new AjaxAdapter(fetch);
+const ajax        = new AjaxAdapter(fetch);
+const STORAGE_KEY = 'id_token';
 
 export default class SignUp extends Component {
 
@@ -129,7 +130,7 @@ export default class SignUp extends Component {
             </InputGroup>
           </ListItem>
         </List>
-        <Button style={{margin: 10}} onPress={this._userSignup.bind(this)}>
+        <Button style={styles.margin} onPress={this._userSignup.bind(this)}>
           SIGNUP
         </Button>
       </Content>

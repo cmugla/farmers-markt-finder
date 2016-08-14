@@ -18,7 +18,8 @@ import {
   Button
 } from 'native-base';
 
-import OpenUrlButton from './OpenUrlButton'
+import styles         from './styles'
+import OpenUrlButton  from './OpenUrlButton'
 
 export default class Market extends Component {
   render(){
@@ -74,27 +75,6 @@ export default class Market extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  margin: {
-    margin:10
-  },
-  right: {
-    textAlign: 'right'
-  },
-  footer: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  bold: {
-    fontWeight: 'bold'
-  },
-  finePrint: {
-    fontSize: 10,
-    textAlign: 'right',
-    color: 'hotpink'
-  }
-})
 
 
 
