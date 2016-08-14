@@ -1,0 +1,45 @@
+# OSX
+#
+.DS_Store
+farmer_ios/.DS_Store
+
+# Xcode
+#
+farmer_ios/build/*
+farmer_ios/*.pbxuser
+!default.pbxuser
+farmer_ios/*.mode1v3
+!default.mode1v3
+farmer_ios/*.mode2v3
+!default.mode2v3
+farmer_ios/*.perspectivev3
+farmer_ios/!default.perspectivev3
+xcuserdata
+farmer_ios/*.xccheckout
+farmer_ios/*.moved-aside
+DerivedData
+farmer_ios/*.hmap
+farmer_ios/*.ipa
+farmer_ios/*.xcuserstate
+farmer_ios/project.xcworkspace
+
+# Android/IJ
+#
+farmer_ios/*.iml
+farmer_ios/.idea
+farmer_ios/.gradle
+farmer_ios/local.properties
+
+# node.js
+#
+farmer_ios/node_modules/
+farmer_ios/npm-debug.log
+
+# BUCK
+buck-out/
+\.buckd/
+farmer_ios/android/app/libs
+farmer_ios/android/keystores/debug.keystore
+
+# ENVIRONMENTAL VARIABLES
+farmer_ios/.env
