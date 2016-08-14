@@ -90,7 +90,7 @@ class App extends Component {
     // );
   }
 
-  toggleShowLogin(){
+  showLogin(){
     this.setState({
       onHome: false,
       showLogin: true,
@@ -100,7 +100,7 @@ class App extends Component {
     })
   }
 
-  toggleShowSignUP(){
+  showSignUP(){
     this.setState({
       onHome: false,
       showSignUp: true,
@@ -110,7 +110,7 @@ class App extends Component {
     })
   }
 
-  toggleShowGuest(){
+  showGuest(){
     this.setState({
       onHome: false,
       showGuest: true,
@@ -224,9 +224,9 @@ class App extends Component {
     if(this.state.onHome) {
       return(
         <Homepage
-          login   ={this.toggleShowLogin.bind(this)}
-          signUp  ={this.toggleShowSignUP.bind(this)}
-          skip    ={this.toggleShowGuest.bind(this)} />
+          login   ={this.showLogin.bind(this)}
+          signUp  ={this.showSignUP.bind(this)}
+          skip    ={this.showGuest.bind(this)} />
       )
     } else if(!this.state.onHome) {
       return (
@@ -236,11 +236,11 @@ class App extends Component {
               <Title>{this.state.farmerNameLoggedIn}</Title>
             </Header>
             : <Header>
-                <Button transparent onPress={this.toggleShowLogin.bind(this)}>
+                <Button transparent onPress={this.showLogin.bind(this)}>
                   Login
                 </Button>
                 <Title>NYC Markets</Title>
-                <Button transparent onPress={this.toggleShowSignUP.bind(this)}>
+                <Button transparent onPress={this.showSignUP.bind(this)}>
                   Create
                 </Button>
               </Header>
@@ -367,8 +367,8 @@ class App extends Component {
               <Header><Title>LOGIN</Title></Header>
               <Login toggleLogin={this.loginFarmer.bind(this)} />
               {!this.state.showGuest ?
-                <Button bordered danger style={styles.margin} onPress={this.toggleShowGuest.bind(this)}>
-                  Skip
+                <Button bordered block danger style={styles.margin} onPress={this.showGuest.bind(this)}>
+                  Back to Search Markets
                 </Button>
                 : null }
             </Content>
@@ -377,8 +377,8 @@ class App extends Component {
               <Header><Title>SIGN UP AS A FARMER</Title></Header>
               <SignUp toggleLogin={this.loginFarmer.bind(this)} />
               {!this.state.showGuest ?
-                <Button bordered danger style={styles.margin} onPress={this.toggleShowGuest.bind(this)}>
-                  Skip
+                <Button bordered block danger style={styles.margin} onPress={this.showGuest.bind(this)}>
+                  Back to Search Markets
                 </Button>
                 : null }
             </Content>
