@@ -192,6 +192,20 @@ class App extends Component {
       })
   }
 
+  getPostsByMName(market_name){
+    ajax.getPostsByMName(market_name)
+      .then(data=>{
+        console.log("From get Posts: ", data)
+        this.setState({
+          currentPosts: data,
+          loading:false
+        })
+      })
+      .catch(err=>{
+        if(err) console.log("From get posts, error: ",err)
+      })
+  }
+
   getPostsByFId(){
     let farmer_id = this.state.farmerIdLoggedIn
 
@@ -299,7 +313,8 @@ class App extends Component {
                       marketData    ={this.state.markets}
                       location      ={this.state.location_name}
                       getMarkets    ={this.getMarkets.bind(this)}
-                      currentPosts  ={this.state.currentPosts} />
+                      currentPosts  ={this.state.currentPosts}
+                      getPosts      ={this.getPostsByMName.bind(this)} />
                 }
               </TabBarIOS.Item>
             </TabBarIOS>

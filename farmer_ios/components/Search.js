@@ -123,6 +123,23 @@ export default class Search extends Component {
                   <Text style={styles.right}>{market.operation_hours}</Text>
                   <Text style={styles.right}>{market.operation_season}</Text>
                 </CardItem>
+                <CardItem>
+                  <Button success onPress={()=>{
+                    this.props.getPosts(market.market_name)
+                  }}>
+                    Show Posts
+                  </Button>
+                </CardItem>
+                {posts ?
+                  posts.map((post, id)=>{
+                    return (
+                      <CardItem key={id}>
+                        <Text>{post.content}</Text>
+                      </CardItem>
+                    )
+                  })
+                  : null
+                }
                 {market.market_link ?
                   <CardItem>
                     <OpenUrlButton url={market.market_link.url} />
