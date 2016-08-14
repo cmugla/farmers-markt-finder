@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  AsyncStorage,
+  AsyncStorage
 } from 'react-native';
 import {
   Container,
@@ -12,7 +12,8 @@ import {
   Text,
   Button,
   Header,
-  Title
+  Title,
+  Icon
 } from 'native-base';
 
 var STORAGE_KEY = 'id_token';
@@ -47,12 +48,16 @@ export default class Profile extends Component {
           </Header>
           {savedMarket ?
             <Card>
+              <CardItem header>
+                <Text style={styles.titleText}>Your Market</Text>
+              </CardItem>
               <CardItem>
                 <Text>{savedMarket}</Text>
               </CardItem>
               <CardItem>
-                <Button block danger onPress={this.removerFromFarmer.bind(this)}>
+                <Button danger onPress={this.removerFromFarmer.bind(this)}>
                   Remove
+                  <Icon name="ios-trash" />
                 </Button>
               </CardItem>
             </Card>
