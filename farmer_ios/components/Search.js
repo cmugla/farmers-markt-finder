@@ -82,6 +82,7 @@ export default class Search extends Component {
     let savedMarket   = this.props.market_name;
     let location      = this.props.location;
     let handleSubmit  = this.handleSubmit;
+    let posts         = this.props.currentPosts;
 
     return (
       <Container>
@@ -122,6 +123,21 @@ export default class Search extends Component {
                   <Text style={styles.right}>{market.operation_hours}</Text>
                   <Text style={styles.right}>{market.operation_season}</Text>
                 </CardItem>
+                {posts.map((post, id)=>{
+                  return (
+                    <CardItem key={id}>
+                    {post ?
+                      <Text>{post.farmer_name}</Text>
+                      : null
+                    }
+                      <Text>{post.content}</Text>
+                    {post ?
+                      <Text style={styles.finePrint}>{post.post_created}</Text>
+                      : null
+                    }
+                    </CardItem>
+                  )
+                })}
                 {market.market_link ?
                   <CardItem>
                     <OpenUrlButton url={market.market_link.url} />

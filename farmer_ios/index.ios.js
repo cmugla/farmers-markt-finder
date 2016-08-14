@@ -268,9 +268,10 @@ class App extends Component {
                 {this.state.loading?
                   <Spinner color="blue"/>
                   : <Search
-                      marketData  ={this.state.markets}
-                      location    ={this.state.location_name}
-                      getMarkets  ={this.getMarkets.bind(this)} />
+                      marketData    ={this.state.markets}
+                      location      ={this.state.location_name}
+                      getMarkets    ={this.getMarkets.bind(this)}
+                      currentPosts  ={this.state.currentPosts} />
                 }
               </TabBarIOS.Item>
             </TabBarIOS>
@@ -334,7 +335,8 @@ class App extends Component {
                     isFarmerHere  ={this.state.isFarmerHere}
                     farmerId      ={this.state.farmerIdLoggedIn}
                     market_name   ={this.state.market_name}
-                    getMarketById ={this.getSavedMktById.bind(this)} />
+                    getMarketById ={this.getSavedMktById.bind(this)}
+                    currentPosts  ={this.state.currentPosts} />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                   selected={this.state.selectedTab === 'profile'}
