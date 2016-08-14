@@ -45,28 +45,51 @@ export default class Post extends Component {
   `    `---'`   '`---'`---'`
   */
   render(){
-    console.log("From Post component: ", this.props.marketName)
-    return(
-      <Content>
-        <List>
-          <ListItem>
-            <InputGroup>
-              <Icon name="ios-create" />
-              <Input
-                placeholder="What's new for this week's market?"
-                value={this.state.postContent}
-                onChangeText={(text)=>{
-                  this.setState({
-                    postContent: text
-                  })
-                }} />
-            </InputGroup>
-          </ListItem>
-          <Button onPress={this.handlePost.bind(this)}>
-            Post
-          </Button>
-        </List>
-      </Content>
-    )
+    let market_name = this.props.marketName
+    console.log("From Post component: ", market_name)
+
+    if(market_name) {
+      return(
+        <Content>
+          <Header>
+            <Title>{market_name}</Title>
+          </Header>
+          <Text style={styles.margin}>Create a post to showcase any specials or tasty treats you'll be bringing along</Text>
+          <List>
+            <ListItem>
+              <InputGroup>
+                <Icon name="ios-create" />
+                <Input
+                  placeholder="What's new for this week's market?"
+                  value={this.state.postContent}
+                  onChangeText={(text)=>{
+                    this.setState({
+                      postContent: text
+                    })
+                  }} />
+              </InputGroup>
+            </ListItem>
+            <Button style={styles.margin} onPress={this.handlePost.bind(this)}>
+              Post
+            </Button>
+          </List>
+        </Content>
+      )
+    } else {
+      return (
+        <Content>
+          <Header>
+            <Title>No Markets to post to.</Title>
+          </Header>
+          <Text style={styles.margin}>Search for the Market you have a booth at and register your farm so you can start posting updates!</Text>
+        </Content>
+      )
+    }
   }
 }
+
+const styles = StyleSheet.create({
+  margin: {
+    margin: 10
+  }
+})
