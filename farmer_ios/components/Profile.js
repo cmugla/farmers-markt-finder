@@ -79,7 +79,15 @@ export default class Profile extends Component {
             {this.props.farmerPosts.map((post, id)=>{
               return (
                 <CardItem key={id}>
+                {post ?
+                  <Text>{post.market_name}</Text>
+                  : null
+                }
                   <Text>{post.content}</Text>
+                {post ?
+                  <Text>{post.post_created}</Text>
+                  : null
+                }
                 </CardItem>
               )
             })}
@@ -96,7 +104,5 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-  titleText: {
-    textAlign: 'center'
-  }
+
 })
