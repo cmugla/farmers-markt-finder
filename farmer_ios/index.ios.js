@@ -203,7 +203,7 @@ class App extends Component {
       farmerIdLoggedIn: farmer_id,
       farmerNameLoggedIn: farmer_name,
       isFarmerHere: true,
-      selectedTab: 'feed'
+      selectedTab: 'profile'
     })
   }
 
@@ -352,7 +352,8 @@ class App extends Component {
                     market_id   ={this.state.market_id}
                     farmerName  ={this.state.farmerNameLoggedIn}
                     farmerId    ={this.state.farmerIdLoggedIn}
-                    removeMarket={this.removeFromFarmer.bind(this)} />
+                    removeMarket={this.removeFromFarmer.bind(this)}
+                    showGuest   ={this.showGuest.bind(this)} />
                 </TabBarIOS.Item>
               </TabBarIOS>
               : null
@@ -370,7 +371,7 @@ class App extends Component {
               <Login toggleLogin={this.loginFarmer.bind(this)} />
               {!this.state.showGuest ?
                 <Button bordered block danger style={styles.margin} onPress={this.showGuest.bind(this)}>
-                  Back to Search Markets
+                  Skip & Search Markets
                 </Button>
                 : null }
             </Content>
@@ -380,7 +381,7 @@ class App extends Component {
               <SignUp toggleLogin={this.loginFarmer.bind(this)} />
               {!this.state.showGuest ?
                 <Button bordered block danger style={styles.margin} onPress={this.showGuest.bind(this)}>
-                  Back to Search Markets
+                  Skip & Search Markets
                 </Button>
                 : null }
             </Content>

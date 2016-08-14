@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage,
 } from 'react-native';
 import {
   Container,
@@ -14,10 +15,21 @@ import {
   Title
 } from 'native-base';
 
+var STORAGE_KEY = 'id_token';
+
 export default class Profile extends Component {
 
   removerFromFarmer() {
     this.props.removeMarket(this.props.market_id, this.props.farmerId)
+  }
+
+  async _userLogout() {
+    try {
+      await AsyncStorage.removeItem(STORAGE_KEY);
+      this.props.showGuest();
+    } catch (error) {
+      console.log('Profile AsyncStorage error: ' + error.message);
+    }
   }
 
   render() {
@@ -31,7 +43,7 @@ export default class Profile extends Component {
       <Container>
         <Content>
           <Header>
-            <Title>{farmerName}</Title>
+            <Title>Howdy!</Title>
           </Header>
           {savedMarket ?
             <Card>
@@ -46,6 +58,9 @@ export default class Profile extends Component {
             </Card>
             : <Text>No markets saved.</Text>
           }
+          <Button danger block onPress={this._userLogout.bind(this)}>
+            Logout
+          </Button>
         </Content>
       </Container>
     )

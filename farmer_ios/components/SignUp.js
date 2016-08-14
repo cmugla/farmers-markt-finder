@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  AsyncStorage,
-  AlertIOS
+  AsyncStorage
 } from 'react-native';
 import {
   Content,
