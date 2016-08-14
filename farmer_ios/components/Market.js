@@ -55,8 +55,16 @@ export default class Market extends Component {
             posts.map((post, id)=>{
               return (
                 <CardItem key={id}>
-                  <Text>{post.content}</Text>
-                </CardItem>
+                  {post ?
+                    <Text>{post.farmer_name}</Text>
+                    : null
+                  }
+                    <Text>{post.content}</Text>
+                  {post ?
+                    <Text style={styles.finePrint}>{post.post_created}</Text>
+                    : null
+                  }
+                  </CardItem>
               )
             })
             : null
@@ -68,7 +76,24 @@ export default class Market extends Component {
 }
 
 const styles = StyleSheet.create({
-
+  margin: {
+    margin:10
+  },
+  right: {
+    textAlign: 'right'
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  bold: {
+    textAlign: 'center'
+  },
+  finePrint: {
+    fontSize: 10,
+    textAlign: 'right',
+    color: 'hotpink'
+  }
 })
 
 

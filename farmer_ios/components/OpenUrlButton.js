@@ -24,8 +24,8 @@ export default class OpenUrlButton extends Component {
   render() {
     return (
       <Button block iconRight onPress={this.openUrl.bind(this)}>
-        Go to website
-        <Icon name="ios-arrow-forward" />
+        <Icon name="ios-globe" />
+        Go to Market website
       </Button>
     )
   }
