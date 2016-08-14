@@ -28,6 +28,9 @@ export default class Market extends Component {
     return (
       <Content>
         <Header>
+          <Button transparent onPress={this.props.showGuest}>
+            <Icon name="ios-arrow-back" />
+          </Button>
           <Title>{market.market_name}</Title>
         </Header>
         <Card>
@@ -45,6 +48,9 @@ export default class Market extends Component {
             </CardItem>
             : null
           }
+          <CardItem header>
+            <Text>Posts</Text>
+          </CardItem>
           {posts ?
             posts.map((post, id)=>{
               return (

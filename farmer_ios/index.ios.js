@@ -19,6 +19,7 @@ import {
   Tabs,
   Spinner
 } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Search     from './components/Search'
 import Homepage   from './components/Homepage'
@@ -29,7 +30,7 @@ import FarmerFeed from './components/FarmerFeed'
 import Profile    from './components/Profile'
 import Market     from './components/Market'
 
-import Icon     from 'react-native-vector-icons/Ionicons'
+// import Icon     from 'react-native-vector-icons/Ionicons'
 
 import AjaxAdapter from './helpers/ajaxAdapter.js'
 
@@ -127,6 +128,8 @@ class App extends Component {
       farmerIdLoggedIn: '',
       farmerNameLoggedIn: '',
       isFarmerHere: false,
+      oneMarketClicked: false,
+      marketClicked: ''
     })
   }
 
@@ -308,9 +311,10 @@ class App extends Component {
               selectedTab={this.state.selectedTab}
               unselectedTintColor="#333"
               tintColor="crimson">
-              <TabBarIOS.Item
+              <Icon.TabBarItem
                 selected={this.state.selectedTab === 'search'}
-                systemIcon="favorites"
+                iconName="crosshairs"
+                title="Locate"
                 onPress={() => {
                   this.getMarkets('10003');
                   this.setState({
@@ -323,14 +327,15 @@ class App extends Component {
                     <Market
                       marketClicked   ={this.state.marketClicked}
                       currentPosts    ={this.state.currentPosts}
-                      getPosts        ={this.getPostsByMName.bind(this)} />
+                      getPosts        ={this.getPostsByMName.bind(this)}
+                      showGuest       ={this.showGuest.bind(this)} />
                     : <Search
                         marketData    ={this.state.markets}
                         location      ={this.state.location_name}
                         getMarkets    ={this.getMarkets.bind(this)}
                         showOneMarket ={this.showOneMarket.bind(this)} />
                 }
-              </TabBarIOS.Item>
+              </Icon.TabBarItem>
             </TabBarIOS>
         /*
         ,---.
@@ -343,9 +348,10 @@ class App extends Component {
                 selectedTab={this.state.selectedTab}
                 unselectedTintColor="#333"
                 tintColor="crimson">
-                <TabBarIOS.Item
+                <Icon.TabBarItem
                   selected={this.state.selectedTab === 'feed'}
-                  systemIcon="favorites"
+                  iconName="asterisk"
+                  title="Feed"
                   onPress={() => {
                     this.getSavedMktById();
                     this.setState({
@@ -359,10 +365,10 @@ class App extends Component {
                     farmerId      ={this.state.farmerIdLoggedIn}
                     farmerName    ={this.state.farmerNameLoggedIn}
                     currentPosts  ={this.state.currentPosts} />
-                </TabBarIOS.Item>
-                <TabBarIOS.Item
+                </Icon.TabBarItem>
+                <Icon.TabBarItem
                   title='Post'
-                  systemIcon='history'
+                  iconName="edit"
                   selected={this.state.selectedTab === 'post'}
                   onPress={() => {
                     this.getSavedMktById();
@@ -375,10 +381,11 @@ class App extends Component {
                     farmerId    ={this.state.farmerIdLoggedIn}
                     marketName  ={this.state.market_name}
                     post        ={this.handlePost.bind(this)} />
-                </TabBarIOS.Item>
-                <TabBarIOS.Item
+                </Icon.TabBarItem>
+                <Icon.TabBarItem
                   selected={this.state.selectedTab === 'search'}
-                  systemIcon="search"
+                  iconName="crosshairs"
+                  title="Locate"
                   onPress={() => {
                     this.getSavedMktById();
                     this.setState({
@@ -394,10 +401,11 @@ class App extends Component {
                     market_name   ={this.state.market_name}
                     getMarketById ={this.getSavedMktById.bind(this)}
                     currentPosts  ={this.state.currentPosts} />
-                </TabBarIOS.Item>
-                <TabBarIOS.Item
+                </Icon.TabBarItem>
+                <Icon.TabBarItem
                   selected={this.state.selectedTab === 'profile'}
-                  systemIcon="contacts"
+                  iconName="user"
+                  title="Profile"
                   onPress={() => {
                     this.getSavedMktById();
                     this.getPostsByFId();
@@ -414,7 +422,7 @@ class App extends Component {
                     showGuest   ={this.showGuest.bind(this)}
                     farmerPosts ={this.state.farmerPosts}
                     getMarkets  ={this.getMarkets.bind(this)} />
-                </TabBarIOS.Item>
+                </Icon.TabBarItem>
               </TabBarIOS>
               : null
           }
