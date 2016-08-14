@@ -107,57 +107,60 @@ export default class Search extends Component {
               Search
             </Button>
           </Header>
-          {marketData.map((market, id)=>{
-            return (
-              <Card key={id} style={styles.margin}>
-                <CardItem header>
-                  <Text>
-                    {market.market_name}
-                  </Text>
-                </CardItem>
-                <CardItem>
-                  <Text>{market.address_line_1}</Text>
-                  <Text>{market.city}, {market.state}</Text>
-                </CardItem>
-                <CardItem style={styles.footer}>
-                  <Text style={styles.right}>{market.operation_hours}</Text>
-                  <Text style={styles.right}>{market.operation_season}</Text>
-                </CardItem>
-                {isLoggedIn ?
-                  null
-                  : <CardItem>
-                      <Button block success onPress={()=>{
-                        this.props.showOneMarket(market)
-                      }}>
-                        Show More
-                      </Button>
-                    </CardItem>
-                }
-                {market.market_link ?
-                  <CardItem>
-                    <OpenUrlButton url={market.market_link.url} />
+          {marketData ?
+            marketData.map((market, id)=>{
+              return (
+                <Card key={id} style={styles.margin}>
+                  <CardItem header>
+                    <Text>
+                      {market.market_name}
+                    </Text>
                   </CardItem>
-                  : null
-                }
-                {isLoggedIn ?
-                  savedMarket===market.market_name ?
+                  <CardItem>
+                    <Text>{market.address_line_1}</Text>
+                    <Text>{market.city}, {market.state}</Text>
+                  </CardItem>
+                  <CardItem style={styles.footer}>
+                    <Text style={styles.right}>{market.operation_hours}</Text>
+                    <Text style={styles.right}>{market.operation_season}</Text>
+                  </CardItem>
+                  {isLoggedIn ?
+                    null
+                    : <CardItem>
+                        <Button block success onPress={()=>{
+                          this.props.showOneMarket(market)
+                        }}>
+                          Show More
+                        </Button>
+                      </CardItem>
+                  }
+                  {market.market_link ?
                     <CardItem>
-                      <Text style={styles.center}>Registered!</Text>
+                      <OpenUrlButton url={market.market_link.url} />
                     </CardItem>
-                    : savedMarket ?
-                      null
-                      : <CardItem>
-                          <Button
-                            block danger
-                            onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
-                            Register Me to this Market
-                          </Button>
-                        </CardItem>
-                  : null
-                }
-              </Card>
-            )
-          })}
+                    : null
+                  }
+                  {isLoggedIn ?
+                    savedMarket===market.market_name ?
+                      <CardItem>
+                        <Text style={styles.center}>Registered!</Text>
+                      </CardItem>
+                      : savedMarket ?
+                        null
+                        : <CardItem>
+                            <Button
+                              block danger
+                              onPress={()=>this.saveMarket(market.market_name, market.address_line_1, market.city, market.state, market.operation_hours, market.operation_season)}>
+                              Register Me to this Market
+                            </Button>
+                          </CardItem>
+                    : null
+                  }
+                </Card>
+              )
+            })
+            : <Text style={styles.margin}>I'm sorry that zip code didn't match with any Farmer's Markets in New York, please try another area</Text>
+          }
         </Content>
       </Container>
     )

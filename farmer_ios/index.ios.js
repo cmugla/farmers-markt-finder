@@ -148,6 +148,13 @@ class App extends Component {
         })
         console.log(this.state.zip, this.state.location_name)
       })
+      .catch(err=>{
+        console.log("error getting markets: ", err)
+        this.setState({
+          markets: null,
+          loading:false
+        })
+      })
   }
 
   showOneMarket(market){
@@ -388,6 +395,7 @@ class App extends Component {
                   title="Locate"
                   onPress={() => {
                     this.getSavedMktById();
+                    this.getMarkets('10003');
                     this.setState({
                       selectedTab: 'search'
                     });
