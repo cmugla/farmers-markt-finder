@@ -16,6 +16,7 @@
   - A user should be able to star Farms they like at a Market
   - A user should be able to see a feed of the most recent updates to their favorite markets and farms, when they open the app
   - There should be a map view
+  - API data should compare with the current time and sort by season, ideally operation hours
 
 ## Technologies
   
