@@ -6,7 +6,7 @@
 
 ## User stories
 
-  - A guest should be able to view their nearby Farmer's Markets
+  - A guest should be able to view their nearby Farmer's Markets and any posts made to it
   - A farmer should be able to add their Farm to the Farmer's Market page
   - A farmer should be able to post updates 
 
