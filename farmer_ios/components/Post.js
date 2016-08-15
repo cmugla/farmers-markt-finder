@@ -57,6 +57,9 @@ export default class Post extends Component {
       return(
         <Content>
           <Header>
+            <Title>{this.props.farmerName}</Title>
+          </Header>
+          <Header>
             <Title>{market_name}</Title>
           </Header>
           <Text style={styles.margin}>Create a post to showcase any specials or tasty treats you'll be bringing along</Text>

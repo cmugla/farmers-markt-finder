@@ -55,7 +55,7 @@ export default class Profile extends Component {
       <Container>
         <Content>
           <Header>
-            <Title>Howdy!</Title>
+            <Title>Howdy, {farmerName}!</Title>
           </Header>
           <Card>
             <CardItem header>

@@ -3,9 +3,12 @@ import {
   Image
 } from 'react-native';
 import {
+  Container,
+  Content,
   Text,
   View,
-  Button
+  Button,
+  Icon
 } from 'native-base';
 import styles from './styles'
 
@@ -25,24 +28,27 @@ export default class Homepage extends Component {
 
   render() {
     return (
-      <View>
-        <Image source={require('../images/farm_bill_2.jpg')} style={styles.backgroundImage}>
-          <View style={styles.centerHome}>
-            <Text style={styles.header}>Welcome!</Text>
-            <View style={{alignItems: 'center'}}>
-              <Button danger style={styles.button} onPress={this.handleLoginPress.bind(this)}>
-                Login
-              </Button>
-              <Button danger style={styles.button} onPress={this.handleSignUpPress.bind(this)}>
-                Sign Up
-              </Button>
-              <Button bordered danger style={styles.button} onPress={this.handleSkipPress.bind(this)}>
-                Skip
-              </Button>
+      <Container>
+        <Content>
+          <Image source={require('../images/farm_bill_2.jpg')} style={styles.backgroundImage}>
+            <View style={styles.centerHome}>
+              <Image source={require('../images/logo2.png')} />
+              <View style={{alignItems: 'center'}}>
+                <Button primary style={styles.button} onPress={this.handleLoginPress.bind(this)}>
+                  Login
+                </Button>
+                <Button danger style={styles.button} onPress={this.handleSignUpPress.bind(this)}>
+                  Sign Up
+                </Button>
+                <Button success iconRight style={styles.button} onPress={this.handleSkipPress.bind(this)}>
+                  <Icon name="ios-arrow-forward" />
+                  Skip
+                </Button>
+              </View>
             </View>
-          </View>
-        </Image>
-      </View>
+          </Image>
+        </Content>
+      </Container>
     )
   }
 }

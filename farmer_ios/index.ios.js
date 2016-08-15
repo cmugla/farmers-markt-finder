@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  MapView,
-  Navigator,
-  TabBarIOS
+  TabBarIOS,
+  Image
 } from 'react-native';
 import {
   Container,
@@ -294,13 +293,17 @@ class App extends Component {
         <View>
           {this.state.showFarmer ?
             <Header>
-              <Title>{this.state.farmerNameLoggedIn}</Title>
+              <Title>
+                <Image source={require('./images/header.png')} />
+              </Title>
             </Header>
             : <Header>
                 <Button transparent onPress={this.showLogin.bind(this)}>
                   Login
                 </Button>
-                <Title>NYC Markets</Title>
+                <Title>
+                  <Image source={require('./images/header.png')} />
+                </Title>
                 <Button transparent onPress={this.showSignUP.bind(this)}>
                   Create
                 </Button>

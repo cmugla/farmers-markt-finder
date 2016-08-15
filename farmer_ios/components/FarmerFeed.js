@@ -31,49 +31,47 @@ export default class FarmerFeed extends Component {
     console.log("Market Data: ", market)
 
     return (
-      <Container>
-        <Content>
-          <Header>
-            {market ?
-              <Title>{market.market_name}</Title>
-              : <Title>No Markets Saved Yet</Title>
-            }
-          </Header>
+      <Content>
+        <Header>
           {market ?
-            <Card style={styles.margin}>
-              <CardItem header>
-                <Text>
-                  {market.market_name}
-                </Text>
-              </CardItem>
-              <CardItem>
-                <Text>{market.address_line_1}</Text>
-                <Text>{market.city}, {market.state}</Text>
-              </CardItem>
-              <CardItem style={styles.footer}>
-                <Text style={styles.right}>{market.operation_hours}</Text>
-                <Text style={styles.right}>{market.operation_season}</Text>
-              </CardItem>
-              {posts.map((post, id)=>{
-                return (
-                  <CardItem key={id}>
-                  {post ?
-                    <Text style={styles.bold}>{post.farmer_name}</Text>
-                    : null
-                  }
-                    <Text>{post.content}</Text>
-                  {post ?
-                    <Text style={styles.finePrint}>{post.post_created}</Text>
-                    : null
-                  }
-                  </CardItem>
-                )
-              })}
-            </Card>
-            : <Text style={styles.bold}>Use the Search feature to find a market you have a booth at</Text>
+            <Title>{market.market_name}</Title>
+            : <Title>No Markets Saved Yet</Title>
           }
-        </Content>
-      </Container>
+        </Header>
+        {market ?
+          <Card style={styles.margin}>
+            <CardItem header>
+              <Text>
+                {market.market_name}
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>{market.address_line_1}</Text>
+              <Text>{market.city}, {market.state}</Text>
+            </CardItem>
+            <CardItem style={styles.footer}>
+              <Text style={styles.right}>{market.operation_hours}</Text>
+              <Text style={styles.right}>{market.operation_season}</Text>
+            </CardItem>
+            {posts.map((post, id)=>{
+              return (
+                <CardItem key={id}>
+                {post ?
+                  <Text style={styles.bold}>{post.farmer_name}</Text>
+                  : null
+                }
+                  <Text>{post.content}</Text>
+                {post ?
+                  <Text style={styles.finePrint}>{post.post_created}</Text>
+                  : null
+                }
+                </CardItem>
+              )
+            })}
+          </Card>
+          : <Text style={styles.bold}>Use the Search feature to find a market you have a booth at</Text>
+        }
+      </Content>
     )
   }
 }
