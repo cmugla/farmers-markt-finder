@@ -25,12 +25,13 @@
   - API: <a href="https://data.ny.gov/Economic-Development/Farmers-Markets-in-New-York-State-API/xjya-f8ng" target="_blank">Farmers Markets in NYC</a>
   - API: <a href="http://maps.googleapis.com/maps/api/geocode/json" target="_blank">Google Maps API</a> - converts lat and long to zip code for easier communication to Farmer's Market API
   - PSQL: 
-    - User table stores user name (and login info), favorite markets, and favorite farms
-    - Farmer table stores Farmer's name/contact info and their updates
+    - Farmer table stores Farmer's name/contact info
+    - Farmer Posts stores Farmer's posts and market info
+    - Saved Markets stores the market info and farmer_id who saved it
 
 ## Wireframes
 
-  Three different Experiences: guest, user, and farmer
+  Three different Experiences: guest, user (future goal), and farmer
   
   ![wireframes](./wireframes/IMG_0079.JPG)
 
