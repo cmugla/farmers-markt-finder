@@ -1,17 +1,21 @@
 # Farmer's Market Finder
   
-  A mobile app for Farmer's Market enthusiasts.
+  A mobile app for Farmer's Markets in New York and their shoppers. My hope with this app is to encourage people to buy locally.
 
-  When opened, the app uses geolocation to show the user's nearby Farmer's markets that are currently happening. As a farmer, you can add your Farm to the Farmer's Market you have a booth at. When a user clicks on a market, all relevant info about that market show, including the location, contact info, and hours; as well as any recent posts made by their farmers. Users can save their favorite market and follow their favorite farms. If they are following a farm, they'll see their posts on their feed when the app is opened.
+  When opened, the app uses geolocation to show the user's nearby Farmer's markets, it also has a search form to search by zip code. As a farmer, you can add your Farm to the Farmer's Market you have a booth at and make posts about any specials you're excited about. When a user clicks on a market, all relevant info about that market shows, including the location, contact info, and hours; as well as any recent posts made by the farmers who show at the market.
 
-## User's stories
+## User stories
 
-  - A guest should be able to view their nearby Farmer's Markets currently happening
-  - A user should be able to save their favorite Farmer's Market
-  - A farmer (super user) should be able to add their Farm to the Farmer's Market page
+  - A guest should be able to view their nearby Farmer's Markets
+  - A farmer should be able to add their Farm to the Farmer's Market page
   - A farmer should be able to post updates 
+
+## Future Goals
+
+  - A user (shopper) should be able to create accounts and save certain Markets they like
   - A user should be able to star Farms they like at a Market
   - A user should be able to see a feed of the most recent updates to their favorite markets and farms, when they open the app
+  - There should be a map view
 
 ## Technologies
   
