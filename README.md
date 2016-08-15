@@ -10,14 +10,6 @@
   - A farmer should be able to add their Farm to the Farmer's Market page
   - A farmer should be able to post updates 
 
-## Future Goals
-
-  - A user (shopper) should be able to create accounts and save certain Markets they like
-  - A user should be able to star Farms they like at a Market
-  - A user should be able to see a feed of the most recent updates to their favorite markets and farms, when they open the app
-  - There should be a map view
-  - API data should compare with the current time and sort by season, ideally operation hours
-
 ## Technologies
   
   - NodeJS: back-end server with models for api data and user data
@@ -35,6 +27,14 @@
   Three different Experiences: guest, user (future goal), and farmer
   
   ![wireframes](./wireframes/IMG_0079.JPG)
+
+## Future Goals
+
+  - A user (shopper) should be able to create accounts and save certain Markets they like
+  - A user should be able to star Farms they like at a Market
+  - A user should be able to see a feed of the most recent updates to their favorite markets and farms, when they open the app
+  - There should be a map view
+  - API data should compare with the current time and sort by season, ideally operation hours
 
 ## Special Thanks
 
